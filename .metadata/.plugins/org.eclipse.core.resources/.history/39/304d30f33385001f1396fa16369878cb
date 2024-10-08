@@ -1,0 +1,15 @@
+package programmers;
+
+public class Application {
+
+	public static void main(String[] args) {
+//		표 편집
+		String[] cmd = new String[] {"D 2","C","U 3","C","D 4","C","U 2","Z","Z"};
+//		new Programmers().solution1(8,3,cmd);
+		new Programmers().solution2(8,2,cmd);
+		
+		
+		
+	}
+
+}
