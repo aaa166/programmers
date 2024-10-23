@@ -1,0 +1,40 @@
+package programmers;
+
+public class Application {
+
+	public static void main(String[] args) {
+//		표 편집
+		String[] cmd = new String[] {"D 2","C","U 3","C","D 4","C","U 2","Z","Z"};
+//		new Programmers().solution1(8,3,cmd);
+//		new Programmers().solution2(8,2,cmd);
+		
+//		숫자 블록
+//		long begin =1;
+//		long end =10;
+//		new Programmers().solution3(begin,end);
+		
+//		조이스틱
+//		String name ="JEROEN";
+//		String name2 ="JAN";
+//		new Programmers().solution4(name);
+		
+//		입국심사 
+		int n = 6;
+		int[] times = new int[] {7,10};
+		new Programmers().solution5(n,times);
+		
+		
+//  	멀쩡한 사각형  
+//		int W =8;
+//		int H =12;
+//		new Programmers().solution6(W,H);
+		
+		
+//  	점 찍기
+		int k =1;
+		int d =5;
+		new Programmers().solution8(k,d);
+		
+	}
+
+}

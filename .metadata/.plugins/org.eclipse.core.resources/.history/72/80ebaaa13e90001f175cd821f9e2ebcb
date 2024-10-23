@@ -350,19 +350,73 @@ public class Programmers {
     }
 	
     
-//  가장 긴 팰린드롬  
-    public int solution6(String s){
-        int answer = 0;
-        int left,right = 0;
+//  멀쩡한 사각형  
+    public long solution6(int w, int h) {
+        long answer = 1;
+        long divisor = gcd(w, h);
         
-        for (int i = 0; i < s.length(); i++) {
-			s.charAt(i)
+//        long divisor = 0;
+//        for (int i = 1; i <= w; i++) {
+//			if(h % i == 0 && w % i == 0) divisor = i;
+//		}
+        
+        answer = ((long)w * (long)h) - ((long)w + (long)h - divisor);
+        return answer;
+    }
+    private long gcd(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+    
+    
+    public long solution7(int w, int h) {
+        long answer = 1;
+        long divisor = 0;
+        for (int i = 1; i <= w; i++) {
+			if(h % i == 0 && w % i == 0) divisor = i;
+		}
+        
+        answer = ((long)w * (long)h) - ((long)w + (long)h - divisor);
+        return answer;
+    }
+    
+    
+    //점 찍기(x)
+    public long solution8(int k, int d) {
+        long answer = 0;
+        for (int i = 0; i <= d; i+=k) {
+			for (int j = 0; j <= d; j+=k) {
+				if(i*i + j*j <= d*d) {
+					answer = answer + 1;
+//					System.out.print(i);
+//					System.out.println(j);
+				}
+			}
+		}
+        System.out.println(answer);
+        return answer;
+    }    
+   
+    
+//  풍선 터트리기  
+    public int solution9(int[] a) {
+        int answer = 2;
+        for (int i = 1; i < a.length-1; i++) {
+			if(a[i-1] > a[i] || a[i+1] > a[i]) {
+				answer++;
+			}
 		}
         
         
+        System.out.println(answer);
         return answer;
-    }    
+    }
+}   
     
 	
 
-}
+
