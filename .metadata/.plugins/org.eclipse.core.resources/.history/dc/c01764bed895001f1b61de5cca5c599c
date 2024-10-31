@@ -1,0 +1,534 @@
+package programmers;
+
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Programmers {
+	
+    public String solution1(int n, int k, String[] cmd) {
+        String answer = "";
+        Scanner sc = new Scanner(System.in);
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String input = "";
+        char charInput;
+        int count = 0;
+        String[] arr= new String[n];
+        Stack<Integer> stack = new Stack<>();
+        
+        for (int i = 0; i < arr.length; i++) {
+			arr[i]="O";
+		}
+        
+//        if(arr[0]=="O") System.out.println("true");
+//    	else System.out.println("false");
+      
+        do {
+        	System.out.print("입력 : ");
+        	input = sc.nextLine();
+//        	input = br.readLine();
+        	charInput = input.charAt(0);
+//        	System.out.println(charInput);
+        	if(charInput =='U' || charInput =='D' ) {
+        		count = Integer.parseInt(input.substring(2));
+        	}
+        	
+        	
+        	boolean isFirst = true;
+        	boolean isLast = true;
+        	
+        	for (int i = k-1; i > 0; i--) {
+        		if(arr[i-1] == "O") {
+        			isFirst = false;
+        		}
+        	}
+        	
+        	for (int i = k; i < arr.length; i++) {
+        		if(arr[i] == "O") {
+        			isLast = false;
+        		}
+        	}
+        	
+        	
+//        	U
+        	if(charInput == 'U') {
+        		while(count != 0) {
+        			if(arr[k-2]=="O") {
+        				k--;
+        				count--;
+        			}else if(arr[k-2]=="X" && !isFirst) { 
+        				k--;
+        			}else break;
+        		}
+        		
+        		if(k <= 1) {
+        			for (int i = 0; i < arr.length; i++) {
+        				if(arr[i] == "X") k++;
+        				else break;
+					}
+        		}
+        		System.out.print(Arrays.toString(arr));
+        		System.out.println(k);
+        		
+//        	D	
+        	}else if(charInput == 'D') {
+        		
+        		while(count != 0) {
+        			if(arr[k]=="X" && k+1 < n) { 
+        				k++;
+        			}else if(arr[k]=="O") {
+        				k++;
+        				count--;
+        			}
+        			else break;
+        		}
+        		
+        		if(k >= n) {
+        			for (int i = arr.length; i > 0; i--) {
+        				if(arr[i-1] == "X") k--;
+        				else break;
+					}
+        		}
+        		System.out.print(Arrays.toString(arr));
+        		System.out.println(k);
+//        	C
+        	}else if(charInput == 'C') {
+        		stack.push(k);
+        		
+        		arr[k-1] = "X";
+        		
+        		if (isLast) {
+        			for (int i = k; i > 0; i--) {
+						if(arr[i-1] == "O") {
+							k = i ;
+							i = 0;
+						}
+					}
+					
+				}else {
+					for (int i = k; i < arr.length; i++) {
+						if(arr[i] == "O") {
+							k = i + 1;
+							i = arr.length;
+						}
+					}
+				}
+        		
+        		
+        		
+//        		if(isFirst) {
+//        			for (int i = k; i < arr.length; i++) {
+//        				if(arr[i] == "O") {
+//        					k = i + 1;
+//        					i = arr.length;
+//        				}
+//        			}
+//        		}else {
+//        			for (int i = k; i > 0; i--) {
+//        				if(arr[i-2] == "O") {
+//        					i = 0;
+//        				}
+//        				k--;
+//        			}
+//        		}
+        		         
+        		
+        		System.out.print(Arrays.toString(arr));
+        		System.out.print(k);
+        		System.out.println(stack);
+        		
+//        	Z	
+           	}else if(charInput == 'Z') {
+           		arr[stack.pop()-1] = "O";
+           		   
+        		
+        		System.out.print(Arrays.toString(arr));
+        		System.out.print(k);
+        		System.out.println(stack);
+        		
+        		
+        	}else if(charInput == 'a') {
+        		
+        		for (String i : arr) {
+        			answer += i;
+        		}
+        		System.out.println(answer);
+        	}
+        	
+        	
+        }while(charInput != 'a');
+        
+        return answer;
+    }
+    
+    
+    
+    public String solution2(int n, int k, String[] cmd) {
+    	int K = k + 1;
+    	String answer = "";
+    	char charInput;
+    	int count = 0;
+    	String[] arr= new String[n];
+    	Stack<Integer> stack = new Stack<>();
+    	
+    	for (int i = 0; i < arr.length; i++) {
+    		arr[i]="O";
+    	}
+    	
+//        if(arr[0]=="O") System.out.println("true");
+//    	else System.out.println("false");
+    	
+    	for (int x = 0; x < cmd.length; x++) {
+    		
+    		charInput = cmd[x].charAt(0);
+    		if(charInput =='U' || charInput =='D' ) {
+    			count = Integer.parseInt(cmd[x].substring(2));
+    		}
+    		
+    		
+    		boolean isFirst = true;
+    		boolean isLast = true;
+    		
+    		for (int i = K-1; i > 0; i--) {
+    			if(arr[i-1] == "O") {
+    				isFirst = false;
+    			}
+    		}
+    		
+    		for (int i = K; i < arr.length; i++) {
+    			if(arr[i] == "O") {
+    				isLast = false;
+    			}
+    		}
+    		
+    		
+//        	U
+    		if(charInput == 'U') {
+    			while(count != 0) {
+    				if(arr[K-2]=="O") {
+    					K--;
+    					count--;
+    				}else if(arr[K-2]=="X" && !isFirst) { 
+    					K = K-1;
+//    					K--;
+    				}else break;
+    			}
+    			
+    			if(K <= 1) {
+    				for (int i = 0; i < arr.length; i++) {
+    					if(arr[i] == "X") K++;
+    					else break;
+    				}
+    			}
+//    			System.out.print(Arrays.toString(arr));
+//    			System.out.println(k);
+    			
+//        	D	
+    		}else if(charInput == 'D') {
+    			
+    			while(count != 0) {
+    				if(arr[K]=="X" && K+1 < n) { 
+    					K++;
+    				}else if(arr[K]=="O") {
+    					K++;
+    					count--;
+    				}
+    				else break;
+    			}
+    			
+    			if(K >= n) {
+    				for (int i = arr.length; i > 0; i--) {
+    					if(arr[i-1] == "X") K--;
+    					else break;
+    				}
+    			}
+//    			System.out.print(Arrays.toString(arr));
+//    			System.out.println(k);
+//        	C
+    		}else if(charInput == 'C') {
+    			stack.push(K);
+    			
+    			arr[K-1] = "X";
+    			
+    			if (isLast) {
+    				for (int i = K; i > 0; i--) {
+    					if(arr[i-1] == "O") {
+    						K = i ;
+    						i = 0;
+    					}
+    				}
+    				
+    			}else {
+    				for (int i = K; i < arr.length; i++) {
+    					if(arr[i] == "O") {
+    						K = i + 1;
+    						i = arr.length;
+    					}
+    				}
+    			}
+//    			System.out.print(Arrays.toString(arr));
+//    			System.out.print(k);
+//    			System.out.println(stack);
+    			
+    			
+//        	Z	
+    		}else if(charInput == 'Z') {
+    			arr[stack.pop()-1] = "O";
+    			
+    			
+//    			System.out.print(Arrays.toString(arr));
+//    			System.out.print(k);
+//    			System.out.println(stack);
+    		}
+    		
+		}
+    	
+    	
+    	for (String i : arr) {
+    		answer += i;
+    	}
+    	System.out.println(answer);
+    	
+    	return answer;
+    }
+    
+    
+//	숫자 블록
+	public int[] solution3(long begin, long end) {
+        int[] all = new int[100];
+        for (int i = 1; i < all.length/2 + 1; i++) {
+        	for (int j = 2; j < all.length; j++) {
+        		if((i * j) - 1 < all.length) {
+        			all[(i * j) - 1] = i;
+        		}
+			}
+		}
+        
+        int index = 0;
+        int[] answer = new int[(int)end-(int)begin+1];
+        for (int i = (int) (begin-1); i < end; i++) {
+        	answer[index] = all[i];
+        	index++;
+		}
+        System.out.println(Arrays.toString(all));
+        System.out.println(Arrays.toString(answer));
+        return answer;
+	}
+	
+	
+//	조이스틱(x)
+    public int solution4(String name) {
+        int answer = 0;
+        char[] nameArr = new char[name.length()];
+        //A=65
+        for (int i = 0; i < nameArr.length; i++) {
+			nameArr[i] = name.charAt(i);
+			System.out.println((int)nameArr[i] - (int)'A');
+			
+			if((int)nameArr[i] <79) answer = answer +  (int)nameArr[i] - (int)'A';
+			else answer = answer +  (int)'Z' + 1 - (int)nameArr[i];
+		}
+        
+        
+        answer = answer + name.length()-1;
+        System.out.println(answer);
+        return answer;
+    }
+	
+    
+//	입국심사 
+    public long solution5(int n, int[] times) {
+        long answer = 0;
+        for (long i = 1; i < times[0] * n; i++) {
+			if(i/times[0] + i/times[1] >= n) {
+				answer = i;
+//				System.out.println(answer);
+				break;
+			} 
+		}
+        return answer;
+    }
+	
+    
+//  멀쩡한 사각형  
+    public long solution6(int w, int h) {
+        long answer = 1;
+        long divisor = gcd(w, h);
+        
+//        long divisor = 0;
+//        for (int i = 1; i <= w; i++) {
+//			if(h % i == 0 && w % i == 0) divisor = i;
+//		}
+        
+        answer = ((long)w * (long)h) - ((long)w + (long)h - divisor);
+        return answer;
+    }
+    private long gcd(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+    
+    
+    public long solution7(int w, int h) {
+        long answer = 1;
+        long divisor = 0;
+        for (int i = 1; i <= w; i++) {
+			if(h % i == 0 && w % i == 0) divisor = i;
+		}
+        
+        answer = ((long)w * (long)h) - ((long)w + (long)h - divisor);
+        return answer;
+    }
+    
+    
+    //점 찍기(x)
+    public long solution8(int k, int d) {
+        long answer = 0;
+        for (int i = 0; i <= d; i+=k) {
+			for (int j = 0; j <= d; j+=k) {
+				if(i*i + j*j <= d*d) {
+					answer = answer + 1;
+//					System.out.print(i);
+//					System.out.println(j);
+				}
+			}
+		}
+        System.out.println(answer);
+        return answer;
+    }    
+   
+    
+//  풍선 터트리기  
+    public int solution9(int[] a) {
+        int answer = 2;
+        int[] min =new int[3];
+        
+        for (int i = 1; i < a.length-1; i++) {
+        	min[0] = Arrays.stream(Arrays.copyOfRange(a, 0, i)).min().getAsInt();
+        	min[1] = a[i];
+        	min[2] = Arrays.stream(Arrays.copyOfRange(a, i+1, a.length)).min().getAsInt();
+        	if(min[1] != Arrays.stream(Arrays.copyOfRange(min, 0, min.length)).max().getAsInt()) {
+        		answer++;
+        	}
+		}
+        System.out.println(answer);
+        return answer;
+    }
+    
+    
+//  자물쇠와 열쇠(X)
+	  public boolean solution10(int[][] key, int[][] lock) {
+	  	boolean answer = true;
+	  	int[][] key2 = new int[key.length][key[0].length];
+	  	int[][] key3 = new int[key.length][key[0].length];
+	  	int[][] key4 = new int[key.length][key[0].length];
+	  	
+//  	key를 90도 횐전시켜 key2
+	  	for (int i = 0; i < key.length; i++) {
+	  		for (int j = 0; j < key[i].length; j++) {
+	  			key2[i][j]=key[2-j][i];
+					System.out.print(key2[i][j]);
+				}
+				System.out.println();
+			}
+	  	
+	  	System.out.println();
+//  	key2를 90도 횐전시켜 key3
+	  	for (int i = 0; i < key2.length; i++) {
+	  		for (int j = 0; j < key2[i].length; j++) {
+	  			key3[i][j]=key2[2-j][i];
+	  			System.out.print(key3[i][j]);
+	  		}
+	  		System.out.println();
+	  	}
+	  	
+	  	System.out.println();
+//  	key3를 90도 횐전시켜 key4
+	  	for (int i = 0; i < key3.length; i++) {
+	  		for (int j = 0; j < key3[i].length; j++) {
+	  			key4[i][j]=key3[2-j][i];
+	  			System.out.print(key4[i][j]);
+	  		}
+	  		System.out.println();
+	  	}
+	  	
+	  	for (int i = 0; i < lock.length; i++) {
+				for (int j = 0; j < lock[i].length; j++) {
+					if(true){
+					}else answer = false;
+					
+				}
+			}
+	  	
+	  	
+	  	System.out.println(answer);
+	      return answer;
+	  }
+	  
+	  
+	  
+//		가장 큰 정사각형 찾기(X)
+	  public int solution11(int[][] board) {
+	        int answer = 1234;
+	        int w = 0;
+	        boolean tf = true;
+	        for (int i = 0; i < board.length; i++) {
+				for (int j = 0; j < board[0].length; j++) {
+					while(tf) {
+						
+					}
+					
+					
+					
+				}
+			}
+	        
+	        return answer;
+	    }
+	  
+//	  숫자 카드 나누기
+	  public int solution12(int[] arrayA, int[] arrayB) {
+	      int answer = 0;
+	      Stack<Integer> stack = new Stack<>();
+	      int minA =0;
+	      
+	      for (int i = 1; i < arrayA.length; i++) {
+	    	  minA = Math.min(minA, arrayA[i]);
+	      }
+	      
+	      for (int i = 1; i <= minA; i++) {
+	    	  boolean divisor = true;
+	    	  for (int j = 0; j < arrayA.length; j++) {
+				
+	    		  if(arrayA[j] % i != 0)  {
+	    			  divisor = false;
+	    			  j = arrayA.length;
+	    		  }
+	    	  }
+	    	  if(divisor == true) stack.push(i);
+	    	  System.out.println(stack);
+	      }
+	      
+//	      while (!stack.isEmpty()) {
+//	    	  if(arrayB[0] % stack.peek() != 0 && arrayB[1] % stack.peek() != 0) {
+//	    		  answer = stack.peek();
+//	    		  break;
+//	    	  }
+//	    	  stack.pop();
+//	      }
+	      System.out.println(answer);
+	      return answer;
+	  }
+	  
+	  
+    
+}   
+    
+	
+
+
