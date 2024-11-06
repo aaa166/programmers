@@ -1,6 +1,7 @@
 package programmers;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -363,13 +364,9 @@ public class Programmers {
         answer = ((long)w * (long)h) - ((long)w + (long)h - divisor);
         return answer;
     }
-    private long gcd(int a, int b) {
-        while (b != 0) {
-            int temp = b;
-            b = a % b;
-            a = temp;
-        }
-        return a;
+    public static int gcd(int a, int b) {
+        if (b == 0) return a;
+        return gcd(b, a % b);
     }
     
     
@@ -471,10 +468,120 @@ public class Programmers {
 	  
 	  
 	  
+//		가장 큰 정사각형 찾기(X)
+	  public int solution11(int[][] board) {
+	        int answer = 1234;
+	        int w = 0;
+	        boolean tf = true;
+	        for (int i = 0; i < board.length; i++) {
+				for (int j = 0; j < board[0].length; j++) {
+					while(tf) {
+						
+					}
+					
+					
+					
+				}
+			}
+	        
+	        return answer;
+	    }
 	  
+//	  숫자 카드 나누기
+	  public int solution12(int[] arrayA, int[] arrayB) {
+	        int answer = 0;
+	        // arrayA와 arrayB 각각의 최대공약수 구하기
+	        int gcdA = findGCD(arrayA);
+	        int gcdB = findGCD(arrayB);
+
+	        boolean validGcdA = true;
+	        for (int i = 0; i < arrayB.length; i++) {
+	            if (arrayB[i] % gcdA == 0) {
+	                validGcdA = false;
+	                break;
+	            }
+	        }
+	        if (validGcdA) {
+	            answer = Math.max(answer, gcdA);
+	        }
+
+	        boolean validGcdB = true;
+	        for (int i = 0; i < arrayA.length; i++) {
+	            if (arrayA[i] % gcdB == 0) {
+	                validGcdB = false;
+	                break;
+	            }
+	        }
+	        if (validGcdB) {
+	            answer = Math.max(answer, gcdB);
+	        }
+	        System.out.println(answer);
+	        return answer;		  
+	  }
+	    // 배열의 최대공약수 구하기
+	    public static int findGCD(int[] array) {
+	        int result = array[0];
+	        for (int i = 1; i < array.length; i++) {
+	            result = gcd(result, array[i]);
+	        }
+	        return result;
+	    }
 	  
-  
+	    
+//	    가장 큰 수
+	    public String solution13(int[] numbers) {
+	        String answer = "";
+	        String[] strNumbers = new String[numbers.length];
+	        for (int i = 0; i < numbers.length; i++) {
+	        	strNumbers[i] = String.valueOf(numbers[i]);
+			}
+	        
+	        Arrays.sort(strNumbers, new Comparator<String>() {
+	            @Override
+	            public int compare(String num1, String num2) {
+	                // 두 문자열을 연결한 후 비교
+	                return (num2 + num1).compareTo(num1 + num2);
+	            }
+	        });
+	        
+	        for (int i = 0; i < strNumbers.length; i++) {
+	        	answer += strNumbers[i];
+			}
+	        
+	        if (answer.charAt(0) == '0') {
+	            return "0";
+	        }
+	        return answer;
+	    }
+	  
+	    
+	    
+//	    햄버거 만들기
+	    public int solution14(int[] ingredient) {
+	        int answer = 0;
+	        Stack<Integer> stack = new Stack<>();
+
+	        for (int i = 0; i < ingredient.length; i++) {
+	            stack.push(ingredient[i]);  
+
+	            if (stack.size() >= 4 && stack.get(stack.size() - 4) == 1 
+	            		&& stack.get(stack.size() - 3) == 2 && stack.get(stack.size() - 2) == 3 
+	            		&& stack.get(stack.size() - 1) == 1) {
+	                stack.pop();
+	                stack.pop();
+	                stack.pop();
+	                stack.pop();
+	                answer++;  
+	            }
+	        }
+
+	        return answer;
+	    }
     
+	    
+	    
+
+	    
 }   
     
 	
