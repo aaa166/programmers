@@ -1,6 +1,7 @@
 package programmers;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -488,48 +489,6 @@ public class Programmers {
 	  
 //	  숫자 카드 나누기
 	  public int solution12(int[] arrayA, int[] arrayB) {
-/*	      int answer = 0;
-	      Stack<Integer> stack = new Stack<>();
-	      int minA =arrayA[0];
-	      
-	      for (int i = 1; i < arrayA.length; i++) {
-	    	  minA = Math.min(minA, arrayA[i]);
-	      }
-	      
-	      for (int i = 1; i <= minA; i++) {
-	    	  boolean divisor = true;
-	    	  for (int j = 0; j < arrayA.length; j++) {
-				
-	    		  if(arrayA[j] % i != 0)  {
-	    			  divisor = false;
-	    			  break;
-	    		  }
-	    	  }
-	    	  if(divisor == true) stack.push(i);
-	      }
-	      
-	      while (!stack.isEmpty()) {
-	    	  boolean divisor = false;
-	    	  for (int i = 0; i < arrayB.length; i++) {
-	    		  if(arrayB[i] % stack.peek() == 0) {
-	    			  divisor = true;
-	    			  i = arrayB.length;
-	    		  }
-	    	  }
-	    	  
-	    	  System.out.println(divisor);
-	    	  if(divisor == false) {
-	    		  answer = stack.peek();
-	    		  break;
-	    	  }
-	    		  
-	    	  stack.pop();
-	      }
-	      
-	      System.out.println(answer);
-	      return answer;
-*/		  
-		  
 	        int answer = 0;
 	        // arrayA와 arrayB 각각의 최대공약수 구하기
 	        int gcdA = findGCD(arrayA);
@@ -568,9 +527,172 @@ public class Programmers {
 	        return result;
 	    }
 	  
+	    
+//	    가장 큰 수
+	    public String solution13(int[] numbers) {
+	        String answer = "";
+	        String[] strNumbers = new String[numbers.length];
+	        for (int i = 0; i < numbers.length; i++) {
+	        	strNumbers[i] = String.valueOf(numbers[i]);
+			}
+	        
+	        Arrays.sort(strNumbers, new Comparator<String>() {
+	            @Override
+	            public int compare(String num1, String num2) {
+	                // 두 문자열을 연결한 후 비교
+	                return (num2 + num1).compareTo(num1 + num2);
+	            }
+	        });
+	        
+	        for (int i = 0; i < strNumbers.length; i++) {
+	        	answer += strNumbers[i];
+			}
+	        
+	        if (answer.charAt(0) == '0') {
+	            return "0";
+	        }
+	        return answer;
+	    }
 	  
-	  
+	    
+	    
+//	    햄버거 만들기
+	    public int solution14(int[] ingredient) {
+	        int answer = 0;
+	        Stack<Integer> stack = new Stack<>();
+
+	        for (int i = 0; i < ingredient.length; i++) {
+	            stack.push(ingredient[i]);  
+
+	            if (stack.size() >= 4 && stack.get(stack.size() - 4) == 1 
+	            		&& stack.get(stack.size() - 3) == 2 && stack.get(stack.size() - 2) == 3 
+	            		&& stack.get(stack.size() - 1) == 1) {
+	                stack.pop();
+	                stack.pop();
+	                stack.pop();
+	                stack.pop();
+	                answer++;  
+	            }
+	        }
+
+	        return answer;
+	    }
     
+	    
+	    
+//	    2개 이하로 다른 비트
+	    public long[] solution15(long[] numbers) {
+	        long[] answer = new long[numbers.length];
+//	        String[] binaryNum = new String[numbers.length];
+//	        for (int i = 0; i < binaryNum.length; i++) {
+//	        	binaryNum[i] = Long.toBinaryString(numbers[i]);
+//			}
+	        
+	        for (int i = 0; i < numbers.length; i++) {
+	            long number = numbers[i];
+	            
+	            long next = number + 1; 
+	            while (true) {
+	                int bitDiff = Long.bitCount(number ^ next);
+	                if (bitDiff == 1 || bitDiff == 2) {
+	                    answer[i] = next;
+	                    break;
+	                }
+	                next++;
+	            }
+	        }
+	        
+	        System.out.println(Arrays.toString(numbers));
+	        System.out.println(Arrays.toString(answer));
+	        
+	        return answer;
+	    }
+	    
+	    
+//		두 큐 합 같게 만들기(x)
+	    public int solution16(int[] queue1, int[] queue2) {
+	        int answer = -2;
+	        int[] queue3 = new int[queue1.length + queue2.length];
+	        
+	        int sum = 0;
+	        int max = 0;
+	        
+	        for (int i = 0; i < queue1.length; i++) {
+				if(queue1[i] > max) max = queue1[i];
+				sum = sum + queue1[i];
+				
+				queue3[i] = queue1[i];
+			}
+	        for (int i = 0; i < queue2.length; i++) {
+	        	if(queue1[i] > max) max = queue1[i];
+	        	sum = sum + queue2[i];
+	        	
+	        	queue3[i + queue1.length] = queue2[i];
+	        }
+	        if(sum/2 < max) return -1;
+	        
+	        
+	        
+	        
+	        System.out.println(sum);
+	        System.out.println(Arrays.toString(queue3));
+	        
+	        return answer;
+	    }
+	    private static boolean canSumToTarget(int[] arr, int target, int startIndex) {
+	    	
+	        for (int i = startIndex; i < arr.length; i++) {
+	            if (canSumToTarget(arr, target - arr[i], i + 1)) {
+	            	
+	                return true;
+	            }
+	        }
+
+	        return false;
+	    }
+	    
+	    
+	    
+//	    소수 찾기
+	    public int solution17(String numbers) {
+	        int answer = 0;
+	        int [] arrNum = new int[numbers.length()];
+	        
+	        for (int i = 0; i < arrNum.length; i++) {
+				arrNum[i] =numbers.charAt(i) - '0';
+			}
+	        System.out.println(Arrays.toString(arrNum));
+	        
+	        System.out.println(10^5);
+	        
+	        return answer;
+	    }   
+//	    소수인지아닌치 판별
+	    public static boolean isPrime(int n) {
+	        // 1은 소수가 아님
+	        if (n <= 1) {
+	            return false;
+	        }
+	        // 2는 소수임
+	        if (n == 2) {
+	            return true;
+	        }
+	        // 2로 나눠지는 숫자는 소수가 아님
+	        if (n % 2 == 0) {
+	            return false;
+	        }
+
+	        // 3부터 n의 제곱근까지 검사
+	        for (int i = 3; i * i <= n; i += 2) {
+	            if (n % i == 0) {
+	                return false; // 나누어 떨어지면 소수가 아님
+	            }
+	        }
+	        return true; // 나누어 떨어지지 않으면 소수
+	    }
+	    
+	    
+	    
 }   
     
 	

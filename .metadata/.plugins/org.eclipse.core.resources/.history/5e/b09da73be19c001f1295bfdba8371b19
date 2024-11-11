@@ -559,11 +559,74 @@ public class Programmers {
 //	    햄버거 만들기
 	    public int solution14(int[] ingredient) {
 	        int answer = 0;
-	        
-	        
+	        Stack<Integer> stack = new Stack<>();
+
+	        for (int i = 0; i < ingredient.length; i++) {
+	            stack.push(ingredient[i]);  
+
+	            if (stack.size() >= 4 && stack.get(stack.size() - 4) == 1 
+	            		&& stack.get(stack.size() - 3) == 2 && stack.get(stack.size() - 2) == 3 
+	            		&& stack.get(stack.size() - 1) == 1) {
+	                stack.pop();
+	                stack.pop();
+	                stack.pop();
+	                stack.pop();
+	                answer++;  
+	            }
+	        }
+
 	        return answer;
 	    }
     
+	    
+	    
+//	    2개 이하로 다른 비트
+	    public long[] solution15(long[] numbers) {
+	        long[] answer = new long[numbers.length];
+//	        String[] binaryNum = new String[numbers.length];
+//	        for (int i = 0; i < binaryNum.length; i++) {
+//	        	binaryNum[i] = Long.toBinaryString(numbers[i]);
+//			}
+	        
+	        for (int i = 0; i < numbers.length; i++) {
+	            long number = numbers[i];
+	            
+	            long next = number + 1; 
+	            while (true) {
+	                int bitDiff = Long.bitCount(number ^ next);
+	                if (bitDiff == 1 || bitDiff == 2) {
+	                    answer[i] = next;
+	                    break;
+	                }
+	                next++;
+	            }
+	        }
+	        
+	        System.out.println(Arrays.toString(numbers));
+	        System.out.println(Arrays.toString(answer));
+	        
+	        return answer;
+	    }
+	    
+	    
+//		두 큐 합 같게 만들기
+	    public int solution16(int[] queue1, int[] queue2) {
+	        int answer = -2;
+	        int sum =0;
+	        for (int i : queue1) {
+				sum = sum + i;
+			}
+	        for (int i : queue2) {
+	        	sum = sum + i;
+	        }
+	        System.out.printf("sum은"+"%d",sum);
+	        
+	        return answer;
+	    }
+	    
+	    
+	    
+	    
 }   
     
 	
