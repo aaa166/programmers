@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;k&apos; in &apos;programmers.Programmers.solution19(...)&apos; to &apos;j&apos;&#x0D;&#x0A;- Original project: &apos;programmers&apos;&#x0D;&#x0A;- Original element: &apos;programmers.Programmers.solution19(int[][]).k&apos;&#x0D;&#x0A;- Renamed element: &apos;k&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;k&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;programmers{Programmers.java[Programmers~solution19~\[\[I@k!19510!19518!19514!19514!I!0!false" name="j" references="true" stamp="1732167937215" version="1.0"/>
+</session>
