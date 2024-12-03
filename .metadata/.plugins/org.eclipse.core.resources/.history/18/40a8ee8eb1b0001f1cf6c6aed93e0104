@@ -3,12 +3,14 @@ package programmers;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.Stack;
 
 public class Programmers {
@@ -912,40 +914,84 @@ public class Programmers {
 				que.offer(Integer.parseInt(number.substring(i, i+1)));
 			}
 	        
-	        System.out.println(Arrays.toString(arr));
-	        System.out.println(que);
-	        
 	        while(k > 0) {
 	        	int max = 0;
+	        	int count = 0;
 	        	for (int i = start; i <= k+start; i++) {
 					if(max < arr[i]) max = arr[i];
 				}
-	        	System.out.println(max);
 	        	for (int i = 0; i <= k; i++) {
-	        		if(max != arr[i]) {
+	        		if(max != que.peek()) {
 	        			start++;
-	        			k--;
-	        			System.out.print("x");
-	        			System.out.println(que.peek());
+	        			count++;
 	        			que.poll();
 	        			
 	        		}else{
-	        			k--;
-	        			System.out.print("o");
-	        			System.out.println(que.peek());
 	        			answer += que.poll();
 	        			start++;
+	        			k = k-count;
 	        			break;
 	        		}
 	        	}
 	        }
-	        for (int i = 0; i < que.size(); i++) {
-	        	answer += que.poll();
-			}
-
 	        
+	       while(!que.isEmpty()) {
+	    	   answer += que.poll();
+	       }
 	        System.out.println(answer);
 	        return answer;
+	    }
+	    
+	    
+//	    시소 짝꿍
+	    public long solution24(int[] weights) {
+	        long answer = 0;
+	        int[] sortWeights = Arrays.copyOf(weights, weights.length);
+	        Arrays.sort(sortWeights);
+	        
+	        for (int i = 0; i < sortWeights.length-1; i++) {
+				for (int j = i+1; j < sortWeights.length; j++) {
+					if(sortWeights[i] == sortWeights[j] || sortWeights[i]*2 == sortWeights[j] || sortWeights[i]*3 == sortWeights[j]*2 || sortWeights[i]*4 == sortWeights[j]*3) {
+						answer++;
+					}
+				}
+			}
+	        return answer;
+	    }
+//	    시소 짝꿍
+	    public long solution25(int[] weights) {
+	        long answer = 0;
+	        Set<Integer> weightSet = new HashSet<>();
+	        
+	        // weights 배열을 순회하면서 HashSet에 값들을 추가
+	        for (int weight : weights) {
+	            weightSet.add(weight);
+	        }
+	        System.out.println(weightSet);
+	        // 조건을 만족하는 쌍을 찾기 위해 HashSet을 순회
+	        for (int weight : weightSet) {
+	            // 조건 1: weight == weight (자기 자신과의 조건)
+	            if (Collections.frequency(Arrays.asList(weights), weight) > 1) {
+	                answer += (long) Collections.frequency(Arrays.asList(weights), weight) * (Collections.frequency(Arrays.asList(weights), weight) - 1) / 2;
+	            }
+
+	            // 조건 2: weight * 2
+	            if (weightSet.contains(weight * 2)) {
+	                answer += (long) Collections.frequency(Arrays.asList(weights), weight) * (Collections.frequency(Arrays.asList(weights), weight * 2));
+	            }
+
+	            // 조건 3: weight * 3 == weight * 2
+	            if (weightSet.contains(weight * 3)) {
+	                answer += (long) Collections.frequency(Arrays.asList(weights), weight) * (Collections.frequency(Arrays.asList(weights), weight * 3));
+	            }
+
+	            // 조건 4: weight * 4 == weight * 3
+	            if (weightSet.contains(weight * 4)) {
+	                answer += (long) Collections.frequency(Arrays.asList(weights), weight) * (Collections.frequency(Arrays.asList(weights), weight * 4));
+	            }
+	        }
+	        System.out.println(answer);
+	    	return answer;
 	    }
 }   
     

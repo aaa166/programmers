@@ -3,15 +3,14 @@ package programmers;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Queue;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.Stack;
 
 public class Programmers {
@@ -876,16 +875,22 @@ public class Programmers {
 	        for (int i = 0; i < moves.length; i++) {
 				for (int j = 0; j < board.length; j++) {
 					if(board[j][moves[i] - 1] != 0) {
-						if(board[j][moves[i] - 1] == stack.peek()) {
-							stack.pop();
-							answer += 2;
-							break;
-						}else {
-							stack.push(board[j][moves[i] - 1]);
-							board[j][moves[i] - 1] = 0;
-							break;
+						if(!stack.isEmpty()) {
+							if(board[j][moves[i] - 1] == stack.peek()) {
+								board[j][moves[i] - 1] = 0;
+								stack.pop();
+								answer += 2;
+								break;
+							}
+//							else {
+//								stack.push(board[j][moves[i] - 1]);
+//								board[j][moves[i] - 1] = 0;
+//								break;
+//							}
 						}
-						
+						stack.push(board[j][moves[i] - 1]);
+						board[j][moves[i] - 1] = 0;
+						break;
 					}
 				}
 			}
@@ -894,6 +899,100 @@ public class Programmers {
 	        return answer;
 	    }
 	    
+	    
+	    
+	    
+//		큰 수 만들기
+	    public String solution23(String number, int k) {
+	        String answer = "";
+	        int[] arr = new int[number.length()];
+	        Queue<Integer> que = new LinkedList<>();
+	        int start = 0;
+	        
+	        for (int i = 0; i < arr.length; i++) {
+				arr[i] = Integer.parseInt(number.substring(i, i+1));
+				que.offer(Integer.parseInt(number.substring(i, i+1)));
+			}
+	        
+	        while(k > 0) {
+	        	int max = 0;
+	        	int count = 0;
+	        	for (int i = start; i <= k+start; i++) {
+					if(max < arr[i]) max = arr[i];
+				}
+	        	for (int i = 0; i <= k; i++) {
+	        		if(max != que.peek()) {
+	        			start++;
+	        			count++;
+	        			que.poll();
+	        			
+	        		}else{
+	        			answer += que.poll();
+	        			start++;
+	        			k = k-count;
+	        			break;
+	        		}
+	        	}
+	        }
+	        
+	       while(!que.isEmpty()) {
+	    	   answer += que.poll();
+	       }
+	        System.out.println(answer);
+	        return answer;
+	    }
+	    
+	    
+//	    시소 짝꿍
+	    public long solution24(int[] weights) {
+	        long answer = 0;
+	        int[] sortWeights = Arrays.copyOf(weights, weights.length);
+	        Arrays.sort(sortWeights);
+	        
+	        for (int i = 0; i < sortWeights.length-1; i++) {
+				for (int j = i+1; j < sortWeights.length; j++) {
+					if(sortWeights[i] == sortWeights[j] || sortWeights[i]*2 == sortWeights[j] || sortWeights[i]*3 == sortWeights[j]*2 || sortWeights[i]*4 == sortWeights[j]*3) {
+						answer++;
+					}
+				}
+			}
+	        return answer;
+	    }
+//	    시소 짝꿍
+	    public long solution25(int[] weights) {
+	        long answer = 0;
+	        Set<Integer> weightSet = new HashSet<>();
+	        
+	        // weights 배열을 순회하면서 HashSet에 값들을 추가
+	        for (int weight : weights) {
+	            weightSet.add(weight);
+	        }
+	        System.out.println(weightSet);
+	     // 배열을 다시 순회하면서 조건에 맞는 값을 찾음
+	        for (int weight : weightSet) {
+	            // 조건 1: weight == weight (자기 자신과의 조건)
+	            if (weightSet.contains(weight)) {
+	                answer++;  // 자기 자신과 쌍을 이루는 경우
+	            }
+
+	            // 조건 2: weight * 2 == weight[j] (두 배)
+	            if (weightSet.contains(weight * 2)) {
+	                answer++;
+	            }
+
+	            // 조건 3: weight * 3 == weight[j] * 2 (1.5배)
+	            if (weightSet.contains(weight * 3 / 2)) {
+	                answer++;
+	            }
+
+	            // 조건 4: weight * 4 == weight[j] * 3 (1.333배)
+	            if (weightSet.contains(weight * 4 / 3)) {
+	                answer++;
+	            }
+	        }
+	        System.out.println(answer);
+	    	return answer;
+	    }
 }   
     
 	

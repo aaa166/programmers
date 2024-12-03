@@ -912,39 +912,51 @@ public class Programmers {
 				que.offer(Integer.parseInt(number.substring(i, i+1)));
 			}
 	        
-	        System.out.println(Arrays.toString(arr));
-	        System.out.println(que);
-	        
 	        while(k > 0) {
 	        	int max = 0;
+	        	int count = 0;
 	        	for (int i = start; i <= k+start; i++) {
 					if(max < arr[i]) max = arr[i];
 				}
-	        	System.out.println(max);
 	        	for (int i = 0; i <= k; i++) {
-	        		if(max != arr[i]) {
+	        		if(max != que.peek()) {
 	        			start++;
-	        			k--;
-	        			System.out.print("x");
-	        			System.out.println(que.peek());
+	        			count++;
 	        			que.poll();
 	        			
-	        		}else {
-	        			k--;
-	        			System.out.print("o");
-	        			System.out.println(que.peek());
+	        		}else{
 	        			answer += que.poll();
 	        			start++;
-	        			i=k;
+	        			k = k-count;
+	        			break;
 	        		}
 	        	}
 	        }
-	        for (int i = 0; i < que.size(); i++) {
-	        	answer += que.poll();
-			}
-
 	        
+	       while(!que.isEmpty()) {
+	    	   answer += que.poll();
+	       }
 	        System.out.println(answer);
+	        return answer;
+	    }
+	    
+	    
+//	    
+	    public long solution24(int[] weights) {
+	        long answer = 0;
+	        int[] sortWeights = Arrays.copyOf(weights, weights.length);
+	        Arrays.sort(sortWeights);
+	        
+	        for (int i = 0; i < sortWeights.length; i++) {
+				for (int j = i+1; j < sortWeights.length; j++) {
+					if(sortWeights[i] == sortWeights[j] || sortWeights[i]*2 == sortWeights[j] || sortWeights[i]*3 == sortWeights[j]*2 || sortWeights[i]*4 == sortWeights[j]*3) {
+						answer++;
+						System.out.printf(i+" "+j);
+						System.out.println();
+					}
+				}
+			}
+	        
 	        return answer;
 	    }
 }   

@@ -912,38 +912,44 @@ public class Programmers {
 				que.offer(Integer.parseInt(number.substring(i, i+1)));
 			}
 	        
-	        System.out.println(Arrays.toString(arr));
-	        System.out.println(que);
-	        
-	        while(k>=0) {
+	        while(k > 0) {
 	        	int max = 0;
+	        	int count = 0;
 	        	for (int i = start; i <= k+start; i++) {
 					if(max < arr[i]) max = arr[i];
 				}
-	        	System.out.print("max는"+max);
-	        	for (int i = 0; i < k; i++) {
-	        		if(max != arr[i]) {
+	        	for (int i = 0; i <= k; i++) {
+	        		if(max != que.peek()) {
 	        			start++;
-	        			k--;
-	        			System.out.print("x");
-	        			System.out.print(que.peek());
+	        			count++;
 	        			que.poll();
 	        			
-	        		}else {
-	        			System.out.print("o");
-	        			System.out.print(que.peek());
+	        		}else{
 	        			answer += que.poll();
 	        			start++;
+	        			k = k-count;
 	        			break;
 	        		}
 	        	}
 	        }
-	        for (int i = 0; i < que.size(); i++) {
-	        	answer += que.poll();
-			}
-	       
-	        System.out.println("sss");
+	        
+	       while(!que.isEmpty()) {
+	    	   answer += que.poll();
+	       }
 	        System.out.println(answer);
+	        return answer;
+	    }
+	    
+	    
+//	    
+	    public long solution24(int[] weights) {
+	        long answer = 0;
+	        int[] sortWeights = Arrays.copyOf(weights, weights.length);
+	        Arrays.sort(sortWeights);
+	        
+	        System.out.println(Arrays.toString(sortWeights));
+	        System.out.println(Arrays.toString(weights));
+	        
 	        return answer;
 	    }
 }   

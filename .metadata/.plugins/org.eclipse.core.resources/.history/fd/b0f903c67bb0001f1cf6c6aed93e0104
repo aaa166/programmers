@@ -19,9 +19,9 @@ public class Application {
 //		new Programmers().solution4(name);
 		
 //		입국심사 
-		int n = 6;
-		int[] times = new int[] {7,10};
-		new Programmers().solution5(n,times);
+//		int n = 6;
+//		int[] times = new int[] {7,10};
+//		new Programmers().solution5(n,times);
 		
 		
 //  	멀쩡한 사각형  
@@ -101,10 +101,25 @@ public class Application {
 //		new Programmers().solution19(dots);
 		
 //		연속된 부분 수열의 합
-		int[] sequence = {1, 2, 3, 4, 5};
-		int k = 7;
-		new Programmers().solution20(sequence,k);
+//		int[] sequence = {2, 2, 2, 2, 2};
+//		int k = 6;
+//		new Programmers().solution20(sequence,k);
 		
+//		삼각 달팽이
+//		int n = 6;
+//		new Programmers().solution21(n);
+		
+//		크레인 인형뽑기 게임
+//		int[][] board = {{0,0,0,0,0},{0,0,1,0,3},{0,2,5,0,1},{4,2,4,4,2},{3,5,1,3,1}};
+//		int[] moves = {1,5,3,5,1,2,1,4};
+//		new Programmers().solution22(board,moves);
+		
+//		큰 수 만들기
+		String number = "1924";
+		String number2 = "1231234";
+		String number3 = "4177252841";
+		int k = 2;
+		new Programmers().solution23(number,k);
 	}
 
 }
