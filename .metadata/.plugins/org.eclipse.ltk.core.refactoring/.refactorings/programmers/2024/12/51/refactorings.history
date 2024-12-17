@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;len&apos; in &apos;programmers.Programmers.solution34(...)&apos; to &apos;maxLen&apos;&#x0D;&#x0A;- Original project: &apos;programmers&apos;&#x0D;&#x0A;- Original element: &apos;programmers.Programmers.solution34(String, String[]).len&apos;&#x0D;&#x0A;- Renamed element: &apos;len&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;len&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;programmers{Programmers.java[Programmers~solution34~QString;~\[QString;@len!37800!37811!37804!37806!I!0!false" name="maxLen" references="true" stamp="1734424592952" version="1.0"/>
+</session>
