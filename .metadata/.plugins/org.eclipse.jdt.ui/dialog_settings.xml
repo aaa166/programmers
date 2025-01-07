@@ -26,4 +26,6 @@
 	</section>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
 	</section>
+	<section name="BreadcrumbItemDropDown">
+	</section>
 </section>
