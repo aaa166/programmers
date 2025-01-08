@@ -188,6 +188,14 @@ public class Application {
 		int k = 5;
 		new Programmers().solution39(n, k);
 		
+		
+//		거리두기 확인하기
+		String[][] places = {{"POOOP", "OXXOX", "OPXPX", "OOXOX", "POXXP"}, 
+				{"POOPX", "OXPXP", "PXXXO", "OXXXO", "OOOPP"}, 
+				{"PXOPX", "OXOXP", "OXPOX", "OXXOP", "PXPOX"}, 
+				{"OOOXX", "XOOOX", "OOOXX", "OXOOX", "OOOOO"}, 
+				{"PXPXP", "XPXPX", "PXPXP", "XPXPX", "PXPXP"}};
+		new Programmers().solution40(places);
 	}
 
 }

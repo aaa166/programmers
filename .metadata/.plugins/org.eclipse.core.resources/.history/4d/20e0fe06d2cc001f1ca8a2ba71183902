@@ -1673,135 +1673,175 @@ public class Programmers {
 	    
 //	    거리두기 확인하기
 	    public int[] solution40(String[][] places) {
-	        int[] answer = {};
+	        int[] answer = new int[places.length];
 	        int[] direction = new int[4];	//{위 아래 왼쪽 오른쪽 }
+	        
 	        char[][] room = new char[5][5];
-	        System.out.println(room[0][0]=places[0][0].charAt(0));
-	    	for (int i = 0; i < places[0].length; i++) {
-				for (int j = 0; j < places[0][0].length(); j++) {
-					room[i][j]=places[0][i].charAt(j);
-				}
-			}
-	    	printArray2(room);
-	        
-	        
-//	        for (int i = 0; i < places.length; i++) {
-//				for (int j = 0; j < places[i].length; j++) {
-//					if (places[i][j]=="P") {
-//						if (i == 0 && places[i-1][j]=="X") {
-//							direction[0] = 1;
-//						}
-//						if (i == places.length && places[i+1][j]=="X") {
-//							direction[1] = 1;
-//						}
-//						if (j == 0 && places[i][j-1]=="X") {
-//							direction[2] = 1;
-//						}
-//						if (j == places.length && places[i][j+1]=="X") {
-//							direction[3] = 1;
-//						}
-//						
-//						
-//					}
+//	    	for (int i = 0; i < places[0].length; i++) {
+//				for (int j = 0; j < places[0][0].length(); j++) {
+//					room[i][j]=places[0][i].charAt(j);
 //				}
-//				
 //			}
-	        System.out.println(findO(places, 3, 0, new int[]{1,0,1,0}));
+//	    	printArray2(room);
+	    	
+	        for (int k = 0; k < places.length; k++) {
+		    	for (int i = 0; i < places[0].length; i++) {
+					for (int j = 0; j < places[0][0].length(); j++) {
+						room[i][j]=places[k][i].charAt(j);
+					}
+				}
+		    	printArray2(room);
+		    	int result = 1;
+		    	
+		    	
+		    	for (int i = 0; i < room.length; i++) {
+		    		for (int j = 0; j < room[i].length; j++) {
+		    			if (room[i][j]=='P') {
+		    				//위
+		    				if (i > 0)	{
+		    					direction[0] = 1;
+		    					if (room[i-1][j]=='X') 	direction[0] = 0;
+		    				}
+		    				//아래
+		    				if (i < room.length-1) {
+		    					direction[1] = 1;
+		    					if (room[i+1][j]=='X') 	direction[1] = 0;
+		    				}	
+		    				//왼쪽
+		    				if (j > 0 ) {
+		    					direction[2] = 1;
+		    					if (room[i][j-1]=='X') direction[2] = 0;
+		    				} 	
+		    				//오른쪽
+		    				if (j < room[i].length-1 ) {
+		    					direction[3] = 1;
+		    					if (room[i][j+1]=='X') 	direction[3] = 0;
+		    				} 	
+		    				
+//		    				System.out.println(findO(room, i, j, sdirection)); 
+		    				if (findO(room, i, j, direction) == 0) {
+		    					result = 0;
+		    					break;
+		    				}
+		    			}
+		    		}
+		    		answer[k]=result;
+		    		if (result == 0) {
+						break;
+					}
+		    	}
+		    	System.out.println();
+			}
+	        
+	        
+	        System.out.println(Arrays.toString(answer));
+	        return answer;
+	    }
+	    
+	    public int findO(char[][] arr,int dx, int dy, int[] direction) {
+	    	for (int i = 0; i < direction.length; i++) {
+					if (direction[i]== 1) {
+						if (i == 0) {
+							//위
+							if (dx >= 2) {
+								if (arr[dx-2][dy]=='P') {
+									return 0;
+								}
+							}
+							//왼쪽
+							if (dy!= 0) {
+								if (arr[dx][dy-1]=='P') {
+									return 0;
+								}
+							}
+							//오른쪽
+							if (dy<= arr[0].length-2) {
+								if (arr[dx][dy+1]=='P') {
+									return 0;
+								}
+							}
+						}else if (i == 1) {
+							//아래
+							if (dx <= arr.length-2) {
+								if (arr[dx+2][dy]=='P') {
+									return 0;
+								}
+							}
+							//왼쪽
+							if (dy!= 0) {
+								if (arr[dx][dy-1]=='P') {
+									return 0;
+								}
+							}
+							//오른쪽
+							if (dy<= arr[0].length-2) {
+								if (arr[dx][dy+1]=='P') {
+									return 0;
+								}
+							}
+						}else if (i == 2) {
+							//위
+							if (dx!= 0) {
+								if (arr[dx-1][dy]=='P') {
+									return 0;
+								}
+							}
+							//아래
+							if (dx<= arr.length-2) {
+								if (arr[dx+1][dy]=='P') {
+									return 0;
+								}
+							}
+							//왼쪽
+							if (dy >= 2) {
+								if (arr[dx][dy-2]=='P') {
+									return 0;
+								}
+							}
+						}else if (i == 3) {
+							//위
+							if (dx!= 0) {
+								if (arr[dx-1][dy]=='P') {
+									return 0;
+								}
+							}
+							//아래
+							if (dx<= arr.length-2) {
+								if (arr[dx+1][dy]=='P') {
+									return 0;
+								}
+							}
+							//오른쪽
+							if (dy <= arr[0].length-2) {
+								if (arr[dx][dy+2]=='P') {
+									return 0;
+								}
+							}
+						}
+					}
+	    	}
+	    	return 1;
+	    }
+	    
+	    
+//	    달리기 경주
+	    public String[] solution(String[] players, String[] callings) {
+	        String[] answer = {};
+	        List<String> list = new ArrayList<>();
+	        for (String s : list) {
+				list.add(s);
+			}
+	        System.out.println(list);
 	        
 	        
 	        return answer;
 	    }
 	    
-	    public boolean findO(String[][] arr,int dx, int dy, int[] direction) {
-	    	for (int i = 0; i < direction.length; i++) {
-	    		if (direction[i] == 0) {
-	    			switch (i) {
-						case 0: {
-							//위
-							if (dx!= 0) {
-								if (arr[dx-1][dy]=="P") {
-									return false;
-								}
-							}
-							//왼쪽
-							if (dy!= 0) {
-								if (arr[dx][dy-1]=="P") {
-									return false;
-								}
-							}
-							//오른쪽
-							if (dy!= arr[0].length) {
-								if (arr[dx][dy+1]=="P") {
-									return false;
-								}
-							}
-						}
-						case 1: {
-							//아래
-							if (dx!= arr.length) {
-								if (arr[dx+1][dy]=="P") {
-									return false;
-								}
-							}
-							//왼쪽
-							if (dy!= 0) {
-								if (arr[dx][dy-1]=="P") {
-									return false;
-								}
-							}
-							//오른쪽
-							if (dy!= arr[0].length) {
-								if (arr[dx][dy+1]=="P") {
-									return false;
-								}
-							}
-						}
-						case 2: {
-							//위
-							if (dx!= 0) {
-								if (arr[dx-1][dy]=="P") {
-									return false;
-								}
-							}
-							//아래
-							if (dx!= arr.length) {
-								if (arr[dx+1][dy]=="P") {
-									return false;
-								}
-							}
-							//오른쪽
-							if (dy!= arr[0].length) {
-								if (arr[dx][dy+1]=="P") {
-									return false;
-								}
-							}
-						}
-						case 3: {
-							//위
-							if (dx!= 0) {
-								if (arr[dx-1][dy]=="P") {
-									return false;
-								}
-							}
-							//아래
-							if (dx!= arr.length) {
-								if (arr[dx+1][dy]=="P") {
-									return false;
-								}
-							}
-							//오른쪽
-							if (dy!= arr[0].length) {
-								if (arr[dx][dy+1]=="p") {
-									return false;
-								}
-							}
-						}
-						
-					}
-				}
-	    	}
-	    	return true;
-	    }
+	    
+	    
+	    
+	    
+	    
 }   
     
 	
