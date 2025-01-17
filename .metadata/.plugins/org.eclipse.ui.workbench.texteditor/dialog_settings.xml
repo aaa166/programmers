@@ -6,8 +6,9 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="printArr"/>
+		<item key="selection" value="나선"/>
 		<list key="findhistory">
+			<item value="나선"/>
 			<item value="printarr"/>
 			<item value=""/>
 			<item value="Stack"/>
