@@ -8,6 +8,7 @@
 		<item key="isRegEx" value="false"/>
 		<item key="selection" value="나선"/>
 		<list key="findhistory">
+			<item value="f (isSquare) {"/>
 			<item value="나선"/>
 			<item value="printarr"/>
 			<item value=""/>
