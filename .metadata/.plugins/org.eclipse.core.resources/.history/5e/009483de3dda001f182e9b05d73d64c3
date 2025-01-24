@@ -1,0 +1,2175 @@
+package programmers;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Programmers {
+	
+    public String solution1(int n, int k, String[] cmd) {
+        String answer = "";
+        Scanner sc = new Scanner(System.in);
+//        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String input = "";
+        char charInput;
+        int count = 0;
+        String[] arr= new String[n];
+        Stack<Integer> stack = new Stack<>();
+        
+        for (int i = 0; i < arr.length; i++) {
+			arr[i]="O";
+		}
+        
+//        if(arr[0]=="O") System.out.println("true");
+//    	else System.out.println("false");
+      
+        do {
+        	System.out.print("입력 : ");
+        	input = sc.nextLine();
+//        	input = br.readLine();
+        	charInput = input.charAt(0);
+//        	System.out.println(charInput);
+        	if(charInput =='U' || charInput =='D' ) {
+        		count = Integer.parseInt(input.substring(2));
+        	}
+        	
+        	
+        	boolean isFirst = true;
+        	boolean isLast = true;
+        	
+        	for (int i = k-1; i > 0; i--) {
+        		if(arr[i-1] == "O") {
+        			isFirst = false;
+        		}
+        	}
+        	
+        	for (int i = k; i < arr.length; i++) {
+        		if(arr[i] == "O") {
+        			isLast = false;
+        		}
+        	}
+        	
+        	
+//        	U
+        	if(charInput == 'U') {
+        		while(count != 0) {
+        			if(arr[k-2]=="O") {
+        				k--;
+        				count--;
+        			}else if(arr[k-2]=="X" && !isFirst) { 
+        				k--;
+        			}else break;
+        		}
+        		
+        		if(k <= 1) {
+        			for (int i = 0; i < arr.length; i++) {
+        				if(arr[i] == "X") k++;
+        				else break;
+					}
+        		}
+        		System.out.print(Arrays.toString(arr));
+        		System.out.println(k);
+        		
+//        	D	
+        	}else if(charInput == 'D') {
+        		
+        		while(count != 0) {
+        			if(arr[k]=="X" && k+1 < n) { 
+        				k++;
+        			}else if(arr[k]=="O") {
+        				k++;
+        				count--;
+        			}
+        			else break;
+        		}
+        		
+        		if(k >= n) {
+        			for (int i = arr.length; i > 0; i--) {
+        				if(arr[i-1] == "X") k--;
+        				else break;
+					}
+        		}
+        		System.out.print(Arrays.toString(arr));
+        		System.out.println(k);
+//        	C
+        	}else if(charInput == 'C') {
+        		stack.push(k);
+        		
+        		arr[k-1] = "X";
+        		
+        		if (isLast) {
+        			for (int i = k; i > 0; i--) {
+						if(arr[i-1] == "O") {
+							k = i ;
+							i = 0;
+						}
+					}
+					
+				}else {
+					for (int i = k; i < arr.length; i++) {
+						if(arr[i] == "O") {
+							k = i + 1;
+							i = arr.length;
+						}
+					}
+				}
+        		
+        		
+        		
+//        		if(isFirst) {
+//        			for (int i = k; i < arr.length; i++) {
+//        				if(arr[i] == "O") {
+//        					k = i + 1;
+//        					i = arr.length;
+//        				}
+//        			}
+//        		}else {
+//        			for (int i = k; i > 0; i--) {
+//        				if(arr[i-2] == "O") {
+//        					i = 0;
+//        				}
+//        				k--;
+//        			}
+//        		}
+        		         
+        		
+        		System.out.print(Arrays.toString(arr));
+        		System.out.print(k);
+        		System.out.println(stack);
+        		
+//        	Z	
+           	}else if(charInput == 'Z') {
+           		arr[stack.pop()-1] = "O";
+           		   
+        		
+        		System.out.print(Arrays.toString(arr));
+        		System.out.print(k);
+        		System.out.println(stack);
+        		
+        		
+        	}else if(charInput == 'a') {
+        		
+        		for (String i : arr) {
+        			answer += i;
+        		}
+        		System.out.println(answer);
+        	}
+        	
+        	
+        }while(charInput != 'a');
+        
+        return answer;
+    }
+    
+    
+    
+    public String solution2(int n, int k, String[] cmd) {
+    	int K = k + 1;
+    	String answer = "";
+    	char charInput;
+    	int count = 0;
+    	String[] arr= new String[n];
+    	Stack<Integer> stack = new Stack<>();
+    	
+    	for (int i = 0; i < arr.length; i++) {
+    		arr[i]="O";
+    	}
+    	
+//        if(arr[0]=="O") System.out.println("true");
+//    	else System.out.println("false");
+    	
+    	for (int x = 0; x < cmd.length; x++) {
+    		
+    		charInput = cmd[x].charAt(0);
+    		if(charInput =='U' || charInput =='D' ) {
+    			count = Integer.parseInt(cmd[x].substring(2));
+    		}
+    		
+    		
+    		boolean isFirst = true;
+    		boolean isLast = true;
+    		
+    		for (int i = K-1; i > 0; i--) {
+    			if(arr[i-1] == "O") {
+    				isFirst = false;
+    			}
+    		}
+    		
+    		for (int i = K; i < arr.length; i++) {
+    			if(arr[i] == "O") {
+    				isLast = false;
+    			}
+    		}
+    		
+    		
+//        	U
+    		if(charInput == 'U') {
+    			while(count != 0) {
+    				if(arr[K-2]=="O") {
+    					K--;
+    					count--;
+    				}else if(arr[K-2]=="X" && !isFirst) { 
+    					K = K-1;
+//    					K--;
+    				}else break;
+    			}
+    			
+    			if(K <= 1) {
+    				for (int i = 0; i < arr.length; i++) {
+    					if(arr[i] == "X") K++;
+    					else break;
+    				}
+    			}
+//    			System.out.print(Arrays.toString(arr));
+//    			System.out.println(k);
+    			
+//        	D	
+    		}else if(charInput == 'D') {
+    			
+    			while(count != 0) {
+    				if(arr[K]=="X" && K+1 < n) { 
+    					K++;
+    				}else if(arr[K]=="O") {
+    					K++;
+    					count--;
+    				}
+    				else break;
+    			}
+    			
+    			if(K >= n) {
+    				for (int i = arr.length; i > 0; i--) {
+    					if(arr[i-1] == "X") K--;
+    					else break;
+    				}
+    			}
+//    			System.out.print(Arrays.toString(arr));
+//    			System.out.println(k);
+//        	C
+    		}else if(charInput == 'C') {
+    			stack.push(K);
+    			
+    			arr[K-1] = "X";
+    			
+    			if (isLast) {
+    				for (int i = K; i > 0; i--) {
+    					if(arr[i-1] == "O") {
+    						K = i ;
+    						i = 0;
+    					}
+    				}
+    				
+    			}else {
+    				for (int i = K; i < arr.length; i++) {
+    					if(arr[i] == "O") {
+    						K = i + 1;
+    						i = arr.length;
+    					}
+    				}
+    			}
+//    			System.out.print(Arrays.toString(arr));
+//    			System.out.print(k);
+//    			System.out.println(stack);
+    			
+    			
+//        	Z	
+    		}else if(charInput == 'Z') {
+    			arr[stack.pop()-1] = "O";
+    			
+    			
+//    			System.out.print(Arrays.toString(arr));
+//    			System.out.print(k);
+//    			System.out.println(stack);
+    		}
+    		
+		}
+    	
+    	
+    	for (String i : arr) {
+    		answer += i;
+    	}
+    	System.out.println(answer);
+    	
+    	return answer;
+    }
+    
+    
+//	숫자 블록
+	public int[] solution3(long begin, long end) {
+        int[] all = new int[100];
+        for (int i = 1; i < all.length/2 + 1; i++) {
+        	for (int j = 2; j < all.length; j++) {
+        		if((i * j) - 1 < all.length) {
+        			all[(i * j) - 1] = i;
+        		}
+			}
+		}
+        
+        int index = 0;
+        int[] answer = new int[(int)end-(int)begin+1];
+        for (int i = (int) (begin-1); i < end; i++) {
+        	answer[index] = all[i];
+        	index++;
+		}
+        System.out.println(Arrays.toString(all));
+        System.out.println(Arrays.toString(answer));
+        return answer;
+	}
+	
+	
+//	조이스틱(x)
+    public int solution4(String name) {
+        int answer = 0;
+        char[] nameArr = new char[name.length()];
+        //A=65
+        for (int i = 0; i < nameArr.length; i++) {
+			nameArr[i] = name.charAt(i);
+			System.out.println((int)nameArr[i] - (int)'A');
+			
+			if((int)nameArr[i] <79) answer = answer +  (int)nameArr[i] - (int)'A';
+			else answer = answer +  (int)'Z' + 1 - (int)nameArr[i];
+		}
+        
+        
+        answer = answer + name.length()-1;
+        System.out.println(answer);
+        return answer;
+    }
+	
+    
+//	입국심사 
+    public long solution5(int n, int[] times) {
+        long answer = 0;
+        for (long i = 1; i < times[0] * n; i++) {
+			if(i/times[0] + i/times[1] >= n) {
+				answer = i;
+//				System.out.println(answer);
+				break;
+			} 
+		}
+        return answer;
+    }
+	
+    
+//  멀쩡한 사각형  
+    public long solution6(int w, int h) {
+        long answer = 1;
+        long divisor = gcd(w, h);
+        
+//        long divisor = 0;
+//        for (int i = 1; i <= w; i++) {
+//			if(h % i == 0 && w % i == 0) divisor = i;
+//		}
+        
+        answer = ((long)w * (long)h) - ((long)w + (long)h - divisor);
+        return answer;
+    }
+    public static int gcd(int a, int b) {
+        if (b == 0) return a;
+        return gcd(b, a % b);
+    }
+    
+    
+    public long solution7(int w, int h) {
+        long answer = 1;
+        long divisor = 0;
+        for (int i = 1; i <= w; i++) {
+			if(h % i == 0 && w % i == 0) divisor = i;
+		}
+        
+        answer = ((long)w * (long)h) - ((long)w + (long)h - divisor);
+        return answer;
+    }
+    
+    
+    //점 찍기(x)
+    public long solution8(int k, int d) {
+        long answer = 0;
+        for (int i = 0; i <= d; i+=k) {
+			for (int j = 0; j <= d; j+=k) {
+				if(i*i + j*j <= d*d) {
+					answer = answer + 1;
+//					System.out.print(i);
+//					System.out.println(j);
+				}
+			}
+		}
+        System.out.println(answer);
+        return answer;
+    }    
+   
+    
+//  풍선 터트리기  
+    public int solution9(int[] a) {
+        int answer = 2;
+        int[] min =new int[3];
+        
+        for (int i = 1; i < a.length-1; i++) {
+        	min[0] = Arrays.stream(Arrays.copyOfRange(a, 0, i)).min().getAsInt();
+        	min[1] = a[i];
+        	min[2] = Arrays.stream(Arrays.copyOfRange(a, i+1, a.length)).min().getAsInt();
+        	if(min[1] != Arrays.stream(Arrays.copyOfRange(min, 0, min.length)).max().getAsInt()) {
+        		answer++;
+        	}
+		}
+        System.out.println(answer);
+        return answer;
+    }
+    
+    
+//  자물쇠와 열쇠(X)
+	  public boolean solution10(int[][] key, int[][] lock) {
+	  	boolean answer = true;
+	  	int[][] key2 = new int[key.length][key[0].length];
+	  	int[][] key3 = new int[key.length][key[0].length];
+	  	int[][] key4 = new int[key.length][key[0].length];
+	  	
+//  	key를 90도 횐전시켜 key2
+	  	for (int i = 0; i < key.length; i++) {
+	  		for (int j = 0; j < key[i].length; j++) {
+	  			key2[i][j]=key[2-j][i];
+					System.out.print(key2[i][j]);
+				}
+				System.out.println();
+			}
+	  	
+	  	System.out.println();
+//  	key2를 90도 횐전시켜 key3
+	  	for (int i = 0; i < key2.length; i++) {
+	  		for (int j = 0; j < key2[i].length; j++) {
+	  			key3[i][j]=key2[2-j][i];
+	  			System.out.print(key3[i][j]);
+	  		}
+	  		System.out.println();
+	  	}
+	  	
+	  	System.out.println();
+//  	key3를 90도 횐전시켜 key4
+	  	for (int i = 0; i < key3.length; i++) {
+	  		for (int j = 0; j < key3[i].length; j++) {
+	  			key4[i][j]=key3[2-j][i];
+	  			System.out.print(key4[i][j]);
+	  		}
+	  		System.out.println();
+	  	}
+	  	
+	  	for (int i = 0; i < lock.length; i++) {
+				for (int j = 0; j < lock[i].length; j++) {
+					if(true){
+					}else answer = false;
+					
+				}
+			}
+	  	
+	  	
+	  	System.out.println(answer);
+	      return answer;
+	  }
+	  
+	  
+	  
+//		가장 큰 정사각형 찾기(X)
+	  public int solution11(int[][] board) {
+	        int answer = 1234;
+	        int w = 0;
+	        boolean tf = true;
+	        for (int i = 0; i < board.length; i++) {
+				for (int j = 0; j < board[0].length; j++) {
+					while(tf) {
+						
+					}
+					
+					
+					
+				}
+			}
+	        
+	        return answer;
+	    }
+	  
+//	  숫자 카드 나누기
+	  public int solution12(int[] arrayA, int[] arrayB) {
+	        int answer = 0;
+	        // arrayA와 arrayB 각각의 최대공약수 구하기
+	        int gcdA = findGCD(arrayA);
+	        int gcdB = findGCD(arrayB);
+
+	        boolean validGcdA = true;
+	        for (int i = 0; i < arrayB.length; i++) {
+	            if (arrayB[i] % gcdA == 0) {
+	                validGcdA = false;
+	                break;
+	            }
+	        }
+	        if (validGcdA) {
+	            answer = Math.max(answer, gcdA);
+	        }
+
+	        boolean validGcdB = true;
+	        for (int i = 0; i < arrayA.length; i++) {
+	            if (arrayA[i] % gcdB == 0) {
+	                validGcdB = false;
+	                break;
+	            }
+	        }
+	        if (validGcdB) {
+	            answer = Math.max(answer, gcdB);
+	        }
+	        System.out.println(answer);
+	        return answer;		  
+	  }
+	    // 배열의 최대공약수 구하기
+	    public static int findGCD(int[] array) {
+	        int result = array[0];
+	        for (int i = 1; i < array.length; i++) {
+	            result = gcd(result, array[i]);
+	        }
+	        return result;
+	    }
+	  
+	    
+//	    가장 큰 수
+	    public String solution13(int[] numbers) {
+	        String answer = "";
+	        String[] strNumbers = new String[numbers.length];
+	        for (int i = 0; i < numbers.length; i++) {
+	        	strNumbers[i] = String.valueOf(numbers[i]);
+			}
+	        
+	        Arrays.sort(strNumbers, new Comparator<String>() {
+	            @Override
+	            public int compare(String num1, String num2) {
+	                // 두 문자열을 연결한 후 비교
+	                return (num2 + num1).compareTo(num1 + num2);
+	            }
+	        });
+	        
+	        for (int i = 0; i < strNumbers.length; i++) {
+	        	answer += strNumbers[i];
+			}
+	        
+	        if (answer.charAt(0) == '0') {
+	            return "0";
+	        }
+	        return answer;
+	    }
+	  
+	    
+	    
+//	    햄버거 만들기
+	    public int solution14(int[] ingredient) {
+	        int answer = 0;
+	        Stack<Integer> stack = new Stack<>();
+
+	        for (int i = 0; i < ingredient.length; i++) {
+	            stack.push(ingredient[i]);  
+
+	            if (stack.size() >= 4 && stack.get(stack.size() - 4) == 1 
+	            		&& stack.get(stack.size() - 3) == 2 && stack.get(stack.size() - 2) == 3 
+	            		&& stack.get(stack.size() - 1) == 1) {
+	                stack.pop();
+	                stack.pop();
+	                stack.pop();
+	                stack.pop();
+	                answer++;  
+	            }
+	        }
+
+	        return answer;
+	    }
+    
+	    
+	    
+//	    2개 이하로 다른 비트
+	    public long[] solution15(long[] numbers) {
+	        long[] answer = new long[numbers.length];
+//	        String[] binaryNum = new String[numbers.length];
+//	        for (int i = 0; i < binaryNum.length; i++) {
+//	        	binaryNum[i] = Long.toBinaryString(numbers[i]);
+//			}
+	        
+	        for (int i = 0; i < numbers.length; i++) {
+	            long number = numbers[i];
+	            
+	            long next = number + 1; 
+	            while (true) {
+	                int bitDiff = Long.bitCount(number ^ next);
+	                if (bitDiff == 1 || bitDiff == 2) {
+	                    answer[i] = next;
+	                    break;
+	                }
+	                next++;
+	            }
+	        }
+	        
+	        System.out.println(Arrays.toString(numbers));
+	        System.out.println(Arrays.toString(answer));
+	        
+	        return answer;
+	    }
+	    
+	    
+//		두 큐 합 같게 만들기(x)
+	    public int solution16(int[] queue1, int[] queue2) {
+	        int answer = -2;
+	        int[] queue3 = new int[queue1.length + queue2.length];
+	        
+	        int sum = 0;
+	        int max = 0;
+	        
+	        for (int i = 0; i < queue1.length; i++) {
+				if(queue1[i] > max) max = queue1[i];
+				sum = sum + queue1[i];
+				
+				queue3[i] = queue1[i];
+			}
+	        for (int i = 0; i < queue2.length; i++) {
+	        	if(queue1[i] > max) max = queue1[i];
+	        	sum = sum + queue2[i];
+	        	
+	        	queue3[i + queue1.length] = queue2[i];
+	        }
+	        if(sum/2 < max) return -1;
+	        
+	        
+	        
+	        
+	        System.out.println(sum);
+	        System.out.println(Arrays.toString(queue3));
+	        
+	        return answer;
+	    }
+	    private static boolean canSumToTarget(int[] arr, int target, int startIndex) {
+	    	
+	        for (int i = startIndex; i < arr.length; i++) {
+	            if (canSumToTarget(arr, target - arr[i], i + 1)) {
+	            	
+	                return true;
+	            }
+	        }
+
+	        return false;
+	    }
+	    
+	    
+	    
+//	    소수 찾기
+	    public int solution17(String numbers) {
+	        int answer = 0;
+	        List<Integer> numList = new ArrayList<>();
+	        
+	        findPermutations("", numbers, numList);
+	        
+	        numList = new ArrayList<>(new HashSet<>(numList));  // 중복 제거
+	        
+	        for (int num : numList) {
+	            if (isPrime(num)) {
+	            	answer++;
+	            }
+	        }
+	        System.out.println(answer);
+	        return answer;
+	    }   
+	    public boolean isPrime(int num) {
+	        if (num <= 1) return false;
+	        for (int i = 2; i <= Math.sqrt(num); i++) {
+	            if (num % i == 0) {
+	                return false; 
+	            }
+	        }
+	        return true; 
+	    }
+//	    재귀적으로 순열을 구하는 함수
+	    public void findPermutations(String prefix, String numbers, List<Integer> numList) {
+	        if (prefix.length() > 0) {
+	            numList.add(Integer.parseInt(prefix)); // 
+	        }
+	        
+	        for (int i = 0; i < numbers.length(); i++) {
+	            findPermutations(prefix + numbers.charAt(i), numbers.substring(0, i) + numbers.substring(i + 1), numList);
+	        }
+	    }
+	    
+
+
+//		다리를 지나는 트럭
+	    public int solution18(int bridge_length, int weight, int[] truck_weights) {
+	        int answer = bridge_length;
+	        int currentWeight = 0;
+	        int index = 0;
+	        Queue<Integer> bridge = new ArrayDeque<>();
+	        
+	        while(index < truck_weights.length) {
+	        	answer++;
+	            if (bridge.size() == bridge_length) {
+	                currentWeight -= bridge.poll();  
+	            }
+	        	
+	            if (index < truck_weights.length && currentWeight + truck_weights[index] <= weight) {
+	                bridge.offer(truck_weights[index]);  
+	                currentWeight += truck_weights[index];  
+	                index++;  
+	            } else {
+	                bridge.offer(0);  
+	            }
+	        }
+	        
+	        
+	        System.out.println(answer);
+	        return answer;
+	    }	 
+	    
+	    
+//	    평행
+
+	    public int solution19(int[][] dots) {
+	        int answer = 0;
+	        List<double[]> list =new ArrayList<>();
+	        double[][] line1 = new double[2][2];
+	        double[][] line2 = new double[2][2];
+	        double[][] doubleDots = new double[4][2];
+	        for (int i = 0; i < doubleDots.length; i++) {
+				for (int j = 0; j < doubleDots[i].length; j++) {
+					doubleDots[i][j] = (double)dots[i][j];
+				}
+			}
+	        
+	        for (int i = 0; i < dots.length; i++) {
+				list.add(doubleDots[i]);
+			}
+	        for (int i =  1; i < list.size(); i++) {
+                line1[0] = list.get(0);
+                line1[1] = list.get(i);
+                
+                int count = 0;
+                for (int j = 1; j < list.size(); j++) {
+                    if (j != 0 && j != i) {
+                    
+                    	line2[count] = list.get(j);
+                    	count++;
+                    }
+                }
+                
+                if((line1[0][1] - line1[1][1]) / (line1[0][0] - line1[1][0]) 
+                		== (line2[0][1] - line2[1][1]) / (line2[0][0] - line2[1][0])) {
+                	answer = 1;
+                	break;
+                }
+	        }
+	        return answer;
+	    }
+	    
+	    
+	    
+	    
+//	    연속된 부분 수열의 합
+	    public int[] solution20(int[] sequence, int k) {
+	        int[] answer = new int[2];
+	        int len =sequence.length;
+	        for (int i = 0; i < sequence.length; i++) {
+	        	int sum = 0;
+	        	for (int j = i; j < sequence.length; j++) {
+	        		sum = sum + sequence[j];
+					
+	                if (sum == k) {
+	                	
+	                    if (j - i < len) {
+	                        len = j - i;
+	                        answer[0] = i;
+	                        answer[1] = j;
+	                    }
+	                    break;  
+	                }
+	        		if(sum > k) break;
+				}
+				
+			}
+	        System.out.println(answer[0]);
+	        System.out.println(answer[1]);
+	        
+	        
+	        System.out.println(Arrays.toString(answer));
+	        return answer;
+	    }
+	    
+	    
+//	    삼각 달팽이
+	    public int[] solution21(int n) {
+	        int[] answer = {};
+	        int[][] arr = new int[n][n];
+	        int num = 1;
+	        int end = 0;
+	        for (int i = 1; i <= n; i++) {
+				end += i;
+			}
+	        answer = new int[end];
+	        
+	        int[] dx = {1, 0, -1};  
+	        int[] dy = {0, 1, -1}; 
+	        int x = 0; 
+	        int y = 0;
+	        int direction = 0;
+	        
+	        while(num <= end) {
+	        	arr[x][y] = num;
+	        	
+	        	int nextX = x + dx[direction];
+	        	int nextY = y + dy[direction];
+	        	
+	        	if (nextX < 0 || nextX >= n || nextY < 0 || nextY >= n || arr[nextX][nextY] != 0) {
+	                direction = (direction + 1) % 3;  
+	                nextX = x + dx[direction];
+	                nextY = y + dy[direction];
+	            }
+	        	
+	        	x = nextX;
+	            y = nextY;
+	        	num++;
+	        }
+	        
+	        for (int i = 0; i < arr.length; i++) {
+				for (int j = 0; j < arr[0].length; j++) {
+					System.out.print(arr[i][j]+ "\t");
+				}
+				System.out.println();
+			}
+	        num = 0;
+	        for (int i = 0; i < arr.length; i++) {
+	        	for (int j = 0; j < arr[0].length; j++) {
+	        		if(arr[i][j] != 0) {
+	        			answer[num] = arr[i][j];
+	        			num++;
+	        		}
+	        	}
+	        }
+	        System.out.println(Arrays.toString(answer));
+	        return answer;
+	    }
+	    
+	    
+//	    2차원배열 출력
+	    public void printArray2(int[][] arr) {
+	    	for (int i = 0; i < arr.length; i++) {
+	    		for (int j = 0; j < arr[0].length; j++) {
+	    			System.out.print(arr[i][j] + " ");
+	    		}
+	    		System.out.println();
+	    	}
+	    }
+	    public void printArray2(char[][] arr) {
+	    	for (int i = 0; i < arr.length; i++) {
+	    		for (int j = 0; j < arr[0].length; j++) {
+	    			System.out.print(arr[i][j] + " ");
+	    		}
+	    		System.out.println();
+	    	}
+	    }
+	    
+	    
+//	    크레인 인형뽑기 게임
+	    public int solution22(int[][] board, int[] moves) {
+	        int answer = 0;
+	        printArray2(board);
+	        Stack<Integer> stack = new Stack<>();
+	        
+	        for (int i = 0; i < moves.length; i++) {
+				for (int j = 0; j < board.length; j++) {
+					if(board[j][moves[i] - 1] != 0) {
+						if(!stack.isEmpty()) {
+							if(board[j][moves[i] - 1] == stack.peek()) {
+								board[j][moves[i] - 1] = 0;
+								stack.pop();
+								answer += 2;
+								break;
+							}
+//							else {
+//								stack.push(board[j][moves[i] - 1]);
+//								board[j][moves[i] - 1] = 0;
+//								break;
+//							}
+						}
+						stack.push(board[j][moves[i] - 1]);
+						board[j][moves[i] - 1] = 0;
+						break;
+					}
+				}
+			}
+	        System.out.println(stack);
+	        System.out.println(answer);
+	        return answer;
+	    }
+	    
+	    
+	    
+	    
+//		큰 수 만들기
+	    public String solution23(String number, int k) {
+	        String answer = "";
+	        int[] arr = new int[number.length()];
+	        Queue<Integer> que = new LinkedList<>();
+	        int start = 0;
+	        
+	        for (int i = 0; i < arr.length; i++) {
+				arr[i] = Integer.parseInt(number.substring(i, i+1));
+				que.offer(Integer.parseInt(number.substring(i, i+1)));
+			}
+	        
+	        while(k > 0) {
+	        	int max = 0;
+	        	int count = 0;
+	        	for (int i = start; i <= k+start; i++) {
+					if(max < arr[i]) max = arr[i];
+				}
+	        	for (int i = 0; i <= k; i++) {
+	        		if(max != que.peek()) {
+	        			start++;
+	        			count++;
+	        			que.poll();
+	        			
+	        		}else{
+	        			answer += que.poll();
+	        			start++;
+	        			k = k-count;
+	        			break;
+	        		}
+	        	}
+	        }
+	        
+	       while(!que.isEmpty()) {
+	    	   answer += que.poll();
+	       }
+	        System.out.println(answer);
+	        return answer;
+	    }
+	    
+	    
+//	    시소 짝꿍
+	    public long solution24(int[] weights) {
+	        long answer = 0;
+	        int[] sortWeights = Arrays.copyOf(weights, weights.length);
+	        Arrays.sort(sortWeights);
+	        
+	        for (int i = 0; i < sortWeights.length-1; i++) {
+				for (int j = i+1; j < sortWeights.length; j++) {
+					if(sortWeights[i] == sortWeights[j] || sortWeights[i]*2 == sortWeights[j] || sortWeights[i]*3 == sortWeights[j]*2 || sortWeights[i]*4 == sortWeights[j]*3) {
+						answer++;
+					}
+				}
+			}
+	        return answer;
+	    }
+//	    시소 짝꿍
+	    public long solution25(int[] weights) {
+	        long answer = 0;
+	        HashMap<Integer, Integer> weightMap = new HashMap<>();
+	        for (int weight : weights) {
+	            weightMap.put(weight, weightMap.getOrDefault(weight, 0) + 1);
+	        }
+	        for (int weight : weightMap.keySet()) {
+	            int count = weightMap.get(weight); 
+	            answer += (long) count * (count - 1) / 2; 
+	            if (weightMap.containsKey(weight * 2)) {
+	                answer += (long) count * weightMap.get(weight * 2);
+	            }
+	            if (weightMap.containsKey(weight * 3 / 2)) {
+	                answer += (long) count * weightMap.get(weight * 3 / 2);
+	            }
+	            if (weightMap.containsKey(weight * 4 / 3)) {
+	                answer += (long) count * weightMap.get(weight * 4 / 3);
+	            }
+	        }
+
+	        System.out.println(answer);
+	        return answer;
+	    }
+	    
+	    
+	    
+//	    마법의 엘리베이터(x)
+	    public int solution26(int storey) {
+	        int answer = 0;
+	        String storeyStr = String.valueOf(storey);
+	        int[] storeyArr = new int[storeyStr.length()];
+	        for (int i = 0; i < storeyArr.length; i++) {
+				storeyArr[storeyArr.length-i-1] = Integer.parseInt(storeyStr.substring(i, i+1));
+			}
+	        
+	        
+	    	for (int i = 0; i < storeyArr.length; i++) {
+	    		while(storeyArr[i]!=0) {
+	    			if (i == storeyArr.length - 1) {
+	    				answer += storeyArr[i];
+    					storeyArr[i] = 0;
+					}
+	    			
+	    			else {
+	    				if(storeyArr[i] >= 6) {
+	    					answer += 10 - storeyArr[i];
+	    					storeyArr[i] = 0;
+	    					storeyArr[i+1]++;
+	    				}else if(storeyArr[i] >= 5 && storeyArr[i+1] >= 5 ){
+	    					answer += 10 - storeyArr[i];
+	    					storeyArr[i] = 0;
+	    					storeyArr[i+1]++;
+	    				}
+	    				else {
+	    					answer += storeyArr[i];
+	    					storeyArr[i] = 0;
+	    				}
+	    			}
+	    		}
+	    		System.out.println(Arrays.toString(storeyArr));
+	    		System.out.println(answer);
+			}
+	        return answer;
+	    }
+	    
+	    
+	    
+//	    성격 유형 검사하기
+	    public String solution28(String[] survey, int[] choices) {
+	        String answer = "";
+	        HashMap<String, Integer> map = new HashMap<>();
+	        map.put("R", 0);
+	        map.put("T", 0);
+	        map.put("C", 0);
+	        map.put("F", 0);
+	        map.put("J", 0);
+	        map.put("M", 0);
+	        map.put("A", 0);
+	        map.put("N", 0);
+	        System.out.println(map);
+	        for (int i = 0; i < survey.length; i++) {
+	        	switch (survey[i]) {
+	            case "RT":
+	            	if (choices[i] <= 3) {
+	            		map.put("R", map.get("R") + (4 - choices[i]));
+					}else if (choices[i] >= 5) {
+						map.put("T", map.get("T") + (choices[i] - 4));
+					}
+	            	break;
+	            case "TR":
+	            	if (choices[i] <= 3) {
+	            		map.put("T", map.get("T") + (4 - choices[i]));
+	            	}else if (choices[i] >= 5) {
+	            		map.put("R", map.get("R") + (choices[i] - 4));
+	            	}
+	                break;
+	                
+	            case "CF":
+	            	if (choices[i] <= 3) {
+	            		map.put("C", map.get("C") + (4 - choices[i]));
+					}else if (choices[i] >= 5) {
+						map.put("F", map.get("F") + (choices[i] - 4));
+					}
+	            	break;
+	            case "FC":
+	            	if (choices[i] <= 3) {
+	            		map.put("F", map.get("F") + (4 - choices[i]));
+	            	}else if (choices[i] >= 5) {
+	            		map.put("C", map.get("C") + (choices[i] - 4));
+	            	}
+	                break;
+	            case "JM":
+	            	if (choices[i] <= 3) {
+	            		map.put("J", map.get("J") + (4 - choices[i]));
+					}else if (choices[i] >= 5) {
+						map.put("M", map.get("M") + (choices[i] - 4));
+					}
+	            	break;
+	            case "MJ":
+	            	if (choices[i] <= 3) {
+	            		map.put("M", map.get("M") + (4 - choices[i]));
+	            	}else if (choices[i] >= 5) {
+	            		map.put("J", map.get("J") + (choices[i] - 4));
+	            	}
+	            	break;
+	            case "AN":
+	            	if (choices[i] <= 3) {
+	            		map.put("A", map.get("A") + (4 - choices[i]));
+					}else if (choices[i] >= 5) {
+						map.put("N", map.get("N") + (choices[i] - 4));
+					}
+	            	break;
+	            case "NA":
+	            	if (choices[i] <= 3) {
+	            		map.put("N", map.get("N") + (4 - choices[i]));
+	            	}else if (choices[i] >= 5) {
+	            		map.put("A", map.get("A") + (choices[i] - 4));
+	            	}
+	            	break;
+	        	}
+			}
+	        
+	        if (map.get("R") < map.get("T"))	answer += "T";
+	        else								answer += "R";
+	        	
+	        if (map.get("C") < map.get("F"))	answer += "F";
+	        else								answer += "C";
+	        
+	        if (map.get("J") < map.get("M"))	answer += "M";
+	        else								answer += "J";
+	        
+	        if (map.get("A") < map.get("N"))	answer += "N";
+	        else								answer += "A";
+	        
+	        	
+//	        System.out.println(map);
+//	        System.out.println(answer);
+	        return answer;
+	    }
+	    
+	    
+//	    호텔 대실
+	    public int solution29(String[][] book_time) {
+	        int answer = 1;
+	        Arrays.sort(book_time, Comparator.comparing(a -> a[0]));
+	        int[][] book_time_int = new int[book_time.length][book_time[0].length];
+	        
+	        for (int i = 0; i < book_time_int.length; i++) {
+	        	for (int j = 0; j < book_time_int[i].length; j++) {
+	        		book_time_int[i][j] = changeTime(book_time[i][j]);
+	        		System.out.printf(book_time_int[i][j]+" ");
+				}
+	        	System.out.println();
+			}
+	        
+	        for (int i = 1; i < book_time_int.length; i++) {
+	        	int count = 0;
+	        	for (int j = 0; j < i; j++) {
+					if (book_time_int[i][0] < book_time_int[j][1] + 10) {
+						count++;
+						if(count == answer) {
+							answer++;
+							System.out.println(answer);
+							break;
+						}
+					}
+				}
+			}
+	        
+	        
+	        
+//	        System.out.println(answer);
+	        return answer;
+	    }
+	    
+	    public int changeTime(String time) {
+	    	int h =Integer.parseInt(time.substring(0, 2));
+	    	int m =Integer.parseInt(time.substring(3, 5));
+	    	int result = h*60 +m;
+	    	
+			return result;
+		}
+	    
+	    
+	    
+//	    신규 아이디 추천
+	    public String solution30(String new_id) {
+	        String answer = "";
+	        StringBuilder builder = new StringBuilder(new_id);
+//	        1
+	        for (int i = 0; i < builder.length(); i++) {
+				if('A' <= builder.charAt(i) && builder.charAt(i) <= 'Z') {
+					builder.setCharAt(i, (char)(builder.charAt(i)+32));
+				}
+			}
+//	        2
+	        for (int i = 0; i < builder.length(); i++) {
+	            if ((builder.charAt(i) < 'a' || builder.charAt(i) > 'z')  
+	                    && builder.charAt(i) != '-'
+	                    && builder.charAt(i) != '_'
+	                    && builder.charAt(i) != '.'
+	                    && (builder.charAt(i) < '0' || builder.charAt(i) > '9')) {  
+	                    builder.deleteCharAt(i);
+	                    i--; 
+	                }
+	        }
+//	        3
+	        for (int i = 1; i < builder.length(); i++) {
+	        	if (builder.charAt(i)=='.' && builder.charAt(i-1)=='.') {
+	        		builder.deleteCharAt(i);
+                    i--; 
+				}
+	        }
+	        
+//	        4
+	        if (builder.charAt(0)=='.') {
+	        	builder.deleteCharAt(0);
+			}
+	        if (builder.length() != 0) {
+	        	if (builder.charAt(builder.length()-1)=='.') {
+	        		builder.deleteCharAt(builder.length()-1);
+	        	}
+			}
+//	        5
+	        if (builder.length()==0) {
+	        	builder.append("a");
+			}
+//	        6
+	        if (builder.length() > 15) {
+	        	builder.delete(15, builder.length());
+	        }
+	        
+//	        7
+	        while (builder.length() < 3) {
+	        	builder.append(builder.charAt(builder.length()-1));
+	        }
+	        
+	        answer = builder.toString();
+	        System.out.println(answer);
+	        return answer;
+	    }
+	    
+	    
+//	    124 나라의 숫자(x)
+	    public String solution31(int n) {
+	        String answer = "";
+	        List<Integer> list =new ArrayList<>();
+	        
+	        if (n <= 3) {
+				if (n==3) answer += "4";
+				else answer = String.valueOf(n);
+			}else {
+				
+				if (n%3 == 0 ) {
+					n = n-1;
+					while (n > 3) {
+						list.add(n%3);
+						n = n/3;
+					}
+					if (n==3) answer += "4";
+					else answer += String.valueOf(n);
+					System.out.println(list);
+					while (list.size() > 1) {
+						if (list.get(list.size()-1)==1) {
+							answer += "1"; 
+						}
+						else if(list.get(list.size()-1)==2){
+							answer += "2"; 
+						}
+						else if(list.get(list.size()-1)==0) {
+							answer += "4"; 
+						}
+						list.remove(list.size()-1);
+					}
+					answer += "4";
+				}else{
+					while (n > 3) {
+						list.add(n%3);
+						n = n/3;
+					}
+					if (n==3) answer += "4";
+					else answer += String.valueOf(n);
+					System.out.println("x");
+					System.out.println(list);
+					while (list.size() > 0) {
+						if (list.get(list.size()-1)==1) {
+							answer += "1"; 
+						}
+						else if(list.get(list.size()-1)==2){
+							answer += "2"; 
+						}
+						else if(list.get(list.size()-1)==0) {
+							answer += "4"; 
+						}
+						list.remove(list.size()-1);
+					}
+				}
+			}
+	        
+	        
+	        System.out.println(answer);
+	        return answer;
+	    }
+	    
+//	    보석 쇼핑
+	    public int[] solution32(String[] gems) {
+	        int[] answer = new int[2];
+	        HashSet<String> set = new HashSet<>();
+	        HashSet<String> copiedSet = new HashSet<>();
+	        for (String s : gems) {
+				set.add(s);
+			}
+	        
+	        int len =  Integer.MAX_VALUE;;
+	        int start = 0;
+	        int end = 0;
+	        for (int i = 0; i < gems.length; i++) {
+	        	copiedSet.addAll(set);
+	        	for (int j = i; j < gems.length; j++) {
+	        		copiedSet.remove(gems[j]);
+	        		
+	        		if (copiedSet.isEmpty()  ) {
+	        			if (len > j-i+1) {
+	        				start = i;
+	        				end = j;
+	        				len = j-i+1;
+						}
+	        			break;
+	        		}
+	        	}
+			}
+	        answer[0]=start+1;
+	        answer[1]=end+1;
+	        System.out.println(Arrays.toString(answer));
+	        return answer;
+	    }
+	    public int[] solution33(String[] gems) {
+	        int[] answer = new int[2];
+	        HashSet<String> set = new HashSet<>();
+	        HashMap<String, Integer> gemCountMap = new HashMap<>();
+	        
+	        // 전체 보석 종류를 set에 저장
+	        for (String gem : gems) {
+	            set.add(gem);
+	        }
+	        
+	        int gemTypes = set.size();  // 전체 보석 종류 개수
+	        int start = 0;
+	        int minLength = Integer.MAX_VALUE;
+	        
+	        // 슬라이딩 윈도우 방식으로 구간을 조정
+	        for (int end = 0; end < gems.length; end++) {
+	            // 현재 보석을 카운트 맵에 추가
+	            gemCountMap.put(gems[end], gemCountMap.getOrDefault(gems[end], 0) + 1);
+	            
+	            // 모든 보석을 포함한 구간을 찾을 때까지 왼쪽 포인터를 이동
+	            while (gemCountMap.size() == gemTypes) {
+	                if (minLength > end - start + 1) {
+	                    minLength = end - start + 1;
+	                    answer[0] = start + 1;  // 1-based index
+	                    answer[1] = end + 1;    // 1-based index
+	                }
+	                
+	                // 왼쪽 포인터를 이동시키며 구간 축소
+	                gemCountMap.put(gems[start], gemCountMap.get(gems[start]) - 1);
+	                if (gemCountMap.get(gems[start]) == 0) {
+	                    gemCountMap.remove(gems[start]);
+	                }
+	                start++;
+	            }
+	        }
+
+	        System.out.println(Arrays.toString(answer));
+	        return answer;
+	    }
+	    
+	    
+	    
+//	    방금그곡
+	    public String solution34(String m, String[] musicinfos) {
+	        String answer = "";
+	        int maxLen = 0;
+	        String[][] split = new String[musicinfos.length][4]; 
+	        m = m.replaceAll("C#", "H")
+	                .replaceAll("D#", "I")
+	                .replaceAll("F#", "J")
+	                .replaceAll("G#", "K")
+	                .replaceAll("A#", "L");
+	        System.out.println(m);
+	        for (int i = 0; i < musicinfos.length; i++) {
+	        	split[i] =musicinfos[i].split(",");
+	        	
+			}
+	        for (int i = 0; i < split.length; i++) {
+	        	StringBuffer tone = new StringBuffer();
+	            LocalTime time1 = LocalTime.parse(split[i][0]);
+	            LocalTime time2 = LocalTime.parse(split[i][1]);
+	        	int playtime = (time1.getHour() - time1.getHour()) * 60 + (time2.getMinute() - time1.getMinute());
+	        	split[i][3] = split[i][3]
+	        			.replaceAll("C#", "H")
+                        .replaceAll("D#", "I")
+                        .replaceAll("F#", "J")
+                        .replaceAll("G#", "K")
+                        .replaceAll("A#", "L");
+				for (int j = 0; j < playtime; j++) {
+					tone.append(split[i][3].charAt(j%split[i][3].length()));
+				}
+//				System.out.println(tone);
+				if (tone.indexOf(m) != -1) {
+					if (maxLen < playtime) {
+						maxLen = playtime;
+						answer = split[i][2];
+					}
+				}
+			}
+	        System.out.println(answer);
+	        return answer;
+	    }
+	    public String solution35(String m, String[] musicinfos) {
+	        m = m.replaceAll("C#", "H")
+	             .replaceAll("D#", "I")
+	             .replaceAll("F#", "J")
+	             .replaceAll("G#", "K")
+	             .replaceAll("A#", "L");
+
+	        String answer = "";
+	        int maxLength = 0;
+
+	        for (String musicinfo : musicinfos) {
+	            String[] info = musicinfo.split(",");
+	            String startTime = info[0];
+	            String endTime = info[1];
+	            String title = info[2];
+	            String music = info[3];
+
+	            music = music.replaceAll("C#", "H")
+	                         .replaceAll("D#", "I")
+	                         .replaceAll("F#", "J")
+	                         .replaceAll("G#", "K")
+	                         .replaceAll("A#", "L");
+
+	            String[] start = startTime.split(":");
+	            String[] end = endTime.split(":");
+
+	            int startMinutes = Integer.parseInt(start[0]) * 60 + Integer.parseInt(start[1]);
+	            int endMinutes = Integer.parseInt(end[0]) * 60 + Integer.parseInt(end[1]);
+
+	            int playTime = endMinutes - startMinutes;
+
+	            // 악보 길이가 재생 시간보다 짧으면 반복해서 재생된 악보를 만든다.
+	            StringBuilder musicPlayed = new StringBuilder();
+	            for (int i = 0; i < playTime; i++) {
+	                musicPlayed.append(music.charAt(i % music.length()));
+	            }
+
+	            if (musicPlayed.toString().contains(m)) {
+	                if (playTime > maxLength) {
+	                    maxLength = playTime;
+	                    answer = title;
+	                }
+	            }
+	        }
+
+	        return answer;
+	    }
+	    
+	    
+	    public void printArray2(Object[][] arr) {
+	        for (int i = 0; i < arr.length; i++) {
+				for (int j = 0; j < arr[0].length; j++) {
+					System.out.printf("%5s ", arr[i][j]);
+				}
+				System.out.println();
+			}
+		}
+	    
+	    
+	    
+//	    행렬 테두리 회전하기
+	    public int[] solution36(int rows, int columns, int[][] queries) {
+	        int[] answer = new int[queries.length];
+	        int num = 1;
+	        int[][] arr = new int[rows][columns];
+	        for (int i = 0; i < rows; i++) {
+				for (int j = 0; j < columns; j++) {
+					arr[i][j]=num;
+					num++;
+				}
+			}
+	        
+	        for (int i = 0; i < queries.length; i++) {
+				int startX = queries[i][0]-1;
+				int startY = queries[i][1]-1;
+				int endX = queries[i][2]-1;
+				int endY = queries[i][3]-1;
+				int[] point = {startX,startY};
+				int n = arr[startX][startY];
+				int min = n;
+				
+				while (point[0] < endX) {
+					min = Math.min(min, arr[point[0]+1][point[1]]);
+					arr[point[0]][point[1]] = arr[point[0]+1][point[1]];
+					point[0]++;
+				}
+				while (point[1] < endY) {
+					min = Math.min(min, arr[point[0]][point[1]+1]);
+					arr[point[0]][point[1]] = arr[point[0]][point[1]+1];
+					point[1]++;
+				}
+				while (point[0] > startX) {
+					min = Math.min(min, arr[point[0]-1][point[1]]);
+					arr[point[0]][point[1]] = arr[point[0]-1][point[1]];
+					point[0]--;
+					
+				}
+				while (point[1]-1 > startY) {
+					min = Math.min(min, arr[point[0]][point[1]-1]);
+					arr[point[0]][point[1]] = arr[point[0]][point[1]-1];
+					point[1]--;
+				}
+				arr[point[0]][point[1]] = n;
+				answer[i] = min;
+			}
+	        return answer;
+	    }
+	    
+	    
+//	    징검다리 건너기
+	    public int solution37(int[] stones, int k) {
+	        int answer = 0;
+	        boolean tf =true;
+	        int n = stones.length;
+	        
+	        while (tf) {
+	        	int jump = 1;
+	        	
+	        	for (int i = 0; i < n; i++) {
+	        		if(stones[i] > 0) {
+	        			if(i >= n-1)	{
+	        				stones[i]--; 
+	        				break;
+	        			}
+	        			stones[i]--; 
+	        			jump = 1;
+	        			continue;
+	        		}else {
+	        			if(k <= jump) {
+	        				tf = false;
+	        				answer--;
+	        				break;
+	        			}
+	        			jump++;
+	        			continue;
+	        		}
+				}
+	        	answer++;
+	        	System.out.println(Arrays.toString(stones));
+			}
+	        
+	        System.out.println(answer);
+	        return answer;
+	    }
+	    
+	    
+	    public int solution38(int[] stones, int k) {
+	        int answer = 0;
+	        int consecutiveZeroCount = 0;  // 연속된 0의 개수
+	        int n = stones.length;
+
+	        while (true) {
+	            boolean possible = false;
+
+	            // 돌을 한 번 건너뛰면서 처리
+	            for (int i = 0; i < n; i++) {
+	                if (stones[i] > 0) {
+	                    stones[i]--;  // 돌의 수를 하나 줄임
+	                    consecutiveZeroCount = 0;  // 0이 아니면 연속 0 개수 초기화
+	                } else {
+	                    consecutiveZeroCount++;  // 0이면 연속 0 개수 증가
+	                    if (consecutiveZeroCount >= k) {
+	                        possible = true;
+	                        break;  // 연속 0이 k개 이상이면 종료
+	                    }
+	                }
+	            }
+
+	            // 만약 연속된 0이 k개 이상이 되었다면 종료
+	            if (possible) {
+	                break;
+	            }
+
+	            answer++;  // 점프 한 횟수 증가
+	        }
+
+	        return answer;
+	    }
+	    
+//	    가장 먼 노드
+	    public int solution38(int n, int[][] edge) {
+	        int answer = 0;
+	        int max = Integer.MIN_VALUE;
+	        
+	        List<List<Integer>> graph = new ArrayList<>();
+	        for (int i = 0; i < n; i++) {
+	        	graph.add(new ArrayList<>());
+	        }
+	        
+	        for (int[] e : edge) {
+	            graph.get(e[0] - 1).add(e[1] - 1);
+	            graph.get(e[1] - 1).add(e[0] - 1);
+	        }
+	        
+	        int[] distances = new int[n];  
+	        Arrays.fill(distances, -1);    
+	        distances[0] = 0;             
+
+	        Queue<Integer> queue = new LinkedList<>();
+	        queue.offer(0);
+
+	        while (!queue.isEmpty()) {
+	            int node = queue.poll();
+	            for (int neighbor : graph.get(node)) {
+	                if (distances[neighbor] == -1) {  
+	                    distances[neighbor] = distances[node] + 1;
+	                    queue.offer(neighbor);
+	                }
+	            }
+	        }
+
+	        for (int d : distances) {
+	            if (d > max) {
+	                max = d;
+	            }
+	        }
+
+	        for (int i = 0; i < distances.length; i++) {
+	        	if (distances[i] == max) {
+//	        		System.out.println(i+1);
+	        		answer++;
+	        	}
+			}
+	        System.out.println(answer);
+	        return answer;
+	    }
+
+//	    줄 서는 방법
+	    public int[] solution39(int n, long k) {
+	    	int[] answer = new int[n];
+	        List<Integer> list = new ArrayList<>();
+	        
+	        for (int i = 1; i <= n; i++) {
+	            list.add(i);
+	        }
+	        
+	        k--;
+	        
+	        long[] factorial = new long[n + 1];
+	        factorial[0] = 1;
+	        for (int i = 1; i <= n; i++) {
+	            factorial[i] = factorial[i - 1] * i;
+	        }
+	        
+	        for (int i = 0; i < n; i++) {
+	            int idx = (int)(k / factorial[n - 1 - i]);
+	            answer[i] = list.get(idx);
+	            
+	            k %= factorial[n - 1 - i];
+	            
+	            list.remove(idx);
+	        }
+	        return answer;
+	    }
+	    
+	    public int factorial(int n) {
+	    	int answer = 1;
+	    	for (int i = 2; i <= n; i++) {
+				answer = answer*i;
+			}
+			return answer;
+		}
+	    
+	    
+	    
+//	    거리두기 확인하기
+	    public int[] solution40(String[][] places) {
+	        int[] answer = new int[places.length];
+	        int[] direction = new int[4];	//{위 아래 왼쪽 오른쪽 }
+	        
+	        char[][] room = new char[5][5];
+//	    	for (int i = 0; i < places[0].length; i++) {
+//				for (int j = 0; j < places[0][0].length(); j++) {
+//					room[i][j]=places[0][i].charAt(j);
+//				}
+//			}
+//	    	printArray2(room);
+	    	
+	        for (int k = 0; k < places.length; k++) {
+		    	for (int i = 0; i < places[0].length; i++) {
+					for (int j = 0; j < places[0][0].length(); j++) {
+						room[i][j]=places[k][i].charAt(j);
+					}
+				}
+		    	printArray2(room);
+		    	int result = 1;
+		    	
+		    	
+		    	for (int i = 0; i < room.length; i++) {
+		    		for (int j = 0; j < room[i].length; j++) {
+		    			if (room[i][j]=='P') {
+		    				//위
+		    				if (i > 0)	{
+		    					direction[0] = 1;
+		    					if (room[i-1][j]=='X') 	direction[0] = 0;
+		    				}
+		    				//아래
+		    				if (i < room.length-1) {
+		    					direction[1] = 1;
+		    					if (room[i+1][j]=='X') 	direction[1] = 0;
+		    				}	
+		    				//왼쪽
+		    				if (j > 0 ) {
+		    					direction[2] = 1;
+		    					if (room[i][j-1]=='X') direction[2] = 0;
+		    				} 	
+		    				//오른쪽
+		    				if (j < room[i].length-1 ) {
+		    					direction[3] = 1;
+		    					if (room[i][j+1]=='X') 	direction[3] = 0;
+		    				} 	
+		    				
+//		    				System.out.println(findO(room, i, j, sdirection)); 
+		    				if (findO(room, i, j, direction) == 0) {
+		    					result = 0;
+		    					break;
+		    				}
+		    			}
+		    		}
+		    		answer[k]=result;
+		    		if (result == 0) {
+						break;
+					}
+		    	}
+		    	System.out.println();
+			}
+	        
+	        
+	        System.out.println(Arrays.toString(answer));
+	        return answer;
+	    }
+	    
+	    public int findO(char[][] arr,int dx, int dy, int[] direction) {
+	    	for (int i = 0; i < direction.length; i++) {
+					if (direction[i]== 1) {
+						if (i == 0) {
+							//위
+							if (dx >= 2) {
+								if (arr[dx-2][dy]=='P') {
+									return 0;
+								}
+							}
+							//왼쪽
+							if (dy!= 0) {
+								if (arr[dx][dy-1]=='P') {
+									return 0;
+								}
+							}
+							//오른쪽
+							if (dy<= arr[0].length-2) {
+								if (arr[dx][dy+1]=='P') {
+									return 0;
+								}
+							}
+						}else if (i == 1) {
+							//아래
+							if (dx <= arr.length-2) {
+								if (arr[dx+2][dy]=='P') {
+									return 0;
+								}
+							}
+							//왼쪽
+							if (dy!= 0) {
+								if (arr[dx][dy-1]=='P') {
+									return 0;
+								}
+							}
+							//오른쪽
+							if (dy<= arr[0].length-2) {
+								if (arr[dx][dy+1]=='P') {
+									return 0;
+								}
+							}
+						}else if (i == 2) {
+							//위
+							if (dx!= 0) {
+								if (arr[dx-1][dy]=='P') {
+									return 0;
+								}
+							}
+							//아래
+							if (dx<= arr.length-2) {
+								if (arr[dx+1][dy]=='P') {
+									return 0;
+								}
+							}
+							//왼쪽
+							if (dy >= 2) {
+								if (arr[dx][dy-2]=='P') {
+									return 0;
+								}
+							}
+						}else if (i == 3) {
+							//위
+							if (dx!= 0) {
+								if (arr[dx-1][dy]=='P') {
+									return 0;
+								}
+							}
+							//아래
+							if (dx<= arr.length-2) {
+								if (arr[dx+1][dy]=='P') {
+									return 0;
+								}
+							}
+							//오른쪽
+							if (dy <= arr[0].length-2) {
+								if (arr[dx][dy+2]=='P') {
+									return 0;
+								}
+							}
+						}
+					}
+	    	}
+	    	return 1;
+	    }
+	    
+	    
+//	    달리기 경주
+	    public String[] solution41(String[] players, String[] callings) {
+	        String[] answer = new String[players.length];
+	        List<String> list = new ArrayList<>();
+	        for (String s : players) {
+				list.add(s);
+			}
+	        for (String s : callings) {
+	        	swap(list, s);
+			}
+//	        for (int i = 0; i < callings.length; i++) {
+//	        	swap(list, callings[i]);
+//			}
+	        for (int i = 0; i < list.size(); i++) {
+	        	answer[i] =list.get(i);
+			}
+	        System.out.println(list);
+	        return answer;
+	    }
+
+	    public void swap(List<String> list, String str) {
+//			int index = list.indexOf(str);
+			if (list.indexOf(str) > 0) 	Collections.swap(list, list.indexOf(str), list.indexOf(str)-1);
+		}
+
+
+	    public String[] solution42(String[] players, String[] callings) {
+	        String[] answer = new String[players.length];
+	        
+	        Map<String, Integer> playerIndexMap = new HashMap<>();
+	        
+	        for (int i = 0; i < players.length; i++) {
+	            playerIndexMap.put(players[i], i);
+	        }
+
+	        for (String calling : callings) {
+	            int idx = playerIndexMap.get(calling);
+	            if (idx > 0) {
+	                String previousPlayer = players[idx - 1]; 
+	                players[idx - 1] = calling;
+	                players[idx] = previousPlayer;
+
+	                playerIndexMap.put(calling, idx - 1);
+	                playerIndexMap.put(previousPlayer, idx);
+	            }
+	        }
+	        return players;
+	    }	    
+	    
+	    
+//		개인정보 수집 유효기간
+	    public int[] solution43(String today, String[] terms, String[] privacies) {
+	        int[] answer = {};
+	        List<Integer> list = new ArrayList<>();
+	        LocalDate localToday = LocalDate.of(year(today), month(today), day(today));
+	        
+	        Map<String, Integer> map = new HashMap<>();
+	        for (int i = 0; i < terms.length; i++) {
+				map.put(terms[i].substring(0, 1), Integer.parseInt(terms[i].substring(2)));
+			}
+	        
+	        
+	        for (int i = 0; i < privacies.length; i++) {
+	        	LocalDate localPrivacies = LocalDate.of(year(privacies[i]), month(privacies[i]), day(privacies[i]));
+	        	long monthsBetween = ChronoUnit.MONTHS.between(localPrivacies, localToday);
+	        	
+	        	if (map.get(privacies[i].substring(11,12)) < monthsBetween) {
+	        		list.add(i);
+				}else if (map.get(privacies[i].substring(11,12)) == monthsBetween) {
+					if (day(today) <= day(privacies[i])) {
+						list.add(i);
+					}
+				}
+	        	map.get(privacies[i].substring(11,12));
+			}
+	        
+	        answer = new int[list.size()];
+	        for (int i = 0; i < list.size(); i++) {
+				answer[i] = list.get(i) + 1;
+			}
+	        System.out.println(Arrays.toString(answer));
+	        return answer;
+	    }
+	
+	    public int year(String date) {
+			return Integer.parseInt(date.substring(0, 4));
+		}
+	    public int month(String date) {
+			return Integer.parseInt(date.substring(5, 7));
+	    }
+	    public int day(String date) {
+	    	return Integer.parseInt(date.substring(8, 10));
+	    }
+	    
+//	    디펜스 게임(x)
+	    public int solution44(int n, int k, int[] enemy) {
+	        int answer = 0;
+	        int sum =0;
+	        for (int i = 0; i < k; i++) {
+				sum +=enemy[i];
+			}
+	        if (enemy.length > k) {
+	        	
+	        	for (int i = k; i < enemy.length; i++) {
+	        		if (n + big3(enemy, i) >= sum) {
+	        			sum += enemy[i];
+	        		}else {
+	        			answer = i-1;
+	        			break;
+	        		}
+	        		answer = i;
+	        	}
+				
+			}else {
+				answer = enemy.length;
+			}
+	        
+	        System.out.println(answer);
+	        return answer;
+	    }
+	    
+//	    num번째까지 가장 큰 세 수의 합
+	    public int big3(int[] arr, int num) {
+	    	int[] array = new int[num];
+	    	for (int i = 0; i < array.length; i++) {
+				array[i] = arr[i];
+			}
+			Arrays.sort(array);
+			 for (int i = 0; i < array.length / 2; i++) {
+		            int temp = array[i];
+		            array[i] = array[array.length - 1 - i];
+		            array[array.length - 1 - i] = temp;
+		        }
+			 
+	        return array[0] + array[1] + array[2];
+		}
+	    
+	    
+//		정수를 나선형으로 배치하기
+	    public int[][] solution45(int n) {
+	        int[][] answer = new int[n][n];
+	        int num = 1;
+	        int top = 0, left = 0, bottom = n - 1, right = n - 1;
+	        while (num <= n * n) {
+	        	
+	            for (int i = left; i <= right; i++) {
+	            	answer[top][i] = num++;
+	            }
+	            top++;
+	            
+	            for (int i = top; i <= bottom; i++) {
+	            	answer[i][right] = num++;
+	            }
+	            right--;
+	            
+	            if (top <= bottom) {
+	                for (int i = right; i >= left; i--) {
+	                	answer[bottom][i] = num++;
+	                }
+	                bottom--;
+	            }
+	            
+	            if (left <= right) {
+	                for (int i = bottom; i >= top; i--) {
+	                	answer[i][left] = num++;
+	                }
+	                left++;
+	            }
+				
+			}
+	        
+	        
+	        printArray2(answer);
+	        return answer;
+	    }
+	    
+//	    공원 산책
+	    public int[] solution46(String[] park, String[] routes) {
+	        int[] answer = {};
+	        int mapX = park.length;
+	        int mapY = park[0].length();
+	        char[][] map = new char[mapX][mapY];
+	        for (int i = 0; i < mapX; i++) {
+				for (int j = 0; j < mapY; j++) {
+					map[i][j] = park[i].charAt(j);
+					
+					if (map[i][j] == 'S') {
+						answer = new int[]{i,j};
+					}
+				}
+			}
+	        char direction;
+	        int num;
+	        for (int i = 0; i < routes.length; i++) {
+        		direction = routes[i].charAt(0);
+        		num = Integer.parseInt(routes[i].substring(2, 3));
+        		int[] reset = answer.clone();
+				switch (direction) {
+					case'E': 
+						for (int j = 0; j < num; j++) {
+							if (answer[1]< mapY-1) {
+								if(map[answer[0]][answer[1]+1] !='X') answer[1]++;
+								else {
+									reset(answer,reset);
+									break;
+								}
+							}else {
+								reset(answer,reset);
+								break;
+							}
+						}
+						break;
+					case'W': 
+						for (int j = 0; j < num; j++) {
+							if (answer[1] > 0) {
+								if(map[answer[0]][answer[1]-1] !='X') answer[1]--;
+								else {
+									reset(answer,reset);
+									break;
+								}
+							}else {
+								reset(answer,reset);
+								break;
+							}
+						}
+						break;
+					
+					case'S': 
+						for (int j = 0; j < num; j++) {
+							if (answer[0]< mapX-1) {
+								if(map[answer[0]+1][answer[1]] !='X') answer[0]++;
+								else {
+									reset(answer,reset);
+									break;
+								}
+							}else {
+								reset(answer,reset);
+								break;
+							}
+						}
+						break;
+					case'N': 
+						for (int j = 0; j < num; j++) {
+							if (answer[0] > 0) {
+								if(map[answer[0]-1][answer[1]] !='X') answer[0]--;
+								else reset(answer,reset);
+							}else {
+								reset(answer,reset);
+								break;
+							}
+						}
+						break;
+					}
+			}
+	        System.out.println(Arrays.toString(answer));
+	        
+	        return answer;
+	    }
+	    public void reset(int[] answer, int[] reset) {
+			answer[0]=reset[0];
+			answer[1]=reset[1];
+		}
+	    
+//	    가장 큰 정사각형 찾기
+	    public int solution47(int [][]board){
+	        int answer = 0;
+	        printArray2(board);
+
+	        for (int i = 0; i < board.length; i++) {
+				for (int j = 0; j < board[i].length; j++) {
+					if (board[i][j] == 1) {
+						int size = 0;
+//						System.out.println(square(board,size,new int[] {i,j}));
+						answer = Integer.max(square(board,size,new int[] {i,j}), answer);
+					}
+				}
+			}
+	        answer = answer*answer;
+	        System.out.println(answer);
+	        return answer;
+	    }
+	    public int square(int[][] board,int size, int[] point) {
+	    	size++;
+	    	if (point[0]+size >= board.length  || point[1]+size >= board[0].length) {
+				return size;
+			}
+	    	
+	    	for (int i = point[0]; i <= point[0]+size; i++) {
+				for (int j = point[1]; j <= point[1]+size; j++) {
+					if (board[i][j] == 0) {
+						return size;
+					}
+				}
+			}
+	    	size = square(board, size, point);
+			return size;
+		}
+	    
+	    
+	    
+	    public int[] solution48(String[] enroll, String[] referral, String[] seller, int[] amount) {
+	        int[] answer = new int[enroll.length];
+	        Map<String, Integer> map = new HashMap<>();
+
+	        for (int i = 0; i < enroll.length; i++) {
+				map.put(enroll[i], 0);
+			}
+	      
+	        for (int i = 0; i < seller.length; i++) {
+	        	distribution(enroll, referral, map, seller[i], amount[i]*100);
+			}
+	        
+	        for (int i = 0; i < enroll.length; i++) {
+	        	answer[i] = map.get(enroll[i]);
+			}
+	        System.out.println(Arrays.toString(answer));
+	        return answer;
+	    }
+
+	    public void distribution(String[] arr,String[] referral, Map<String, Integer> map, String enroll,int amount) {
+	    	int top = amount / 10;
+	    	int bottom = amount - top;
+	    	if (indexOf(arr, enroll) != -1) {
+				
+	    		String parents = referral[indexOf(arr, enroll)];
+	    		
+	    		map.put(enroll ,map.get(enroll) + bottom);
+	    		if (parents != "-") {
+	    			distribution(arr, referral, map, parents, top);
+	    		}
+			}
+	    	
+		}
+	    
+	    public static int indexOf(String[] arr, String str) {
+	        for (int i = 0; i < arr.length; i++) {
+	            if (arr[i].equals(str)) {  
+	                return i;  
+	            }
+	        }
+	        return -1;  
+	    }
+}   
+
+
