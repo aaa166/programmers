@@ -2127,37 +2127,38 @@ public class Programmers {
 		}
 	    
 	    
-	    
+//		다단계 칫솔 판매	    
 	    public int[] solution48(String[] enroll, String[] referral, String[] seller, int[] amount) {
-	        int[] answer = {};
+	        int[] answer = new int[enroll.length];
 	        Map<String, Integer> map = new HashMap<>();
-	        
-//	        for (String s : referral) {
-//				if ("-".equals(s)) 	s = "center";
-//				System.out.println(s);
-//			}
-	        
+
 	        for (int i = 0; i < enroll.length; i++) {
 				map.put(enroll[i], 0);
 			}
-	        distribution(enroll, referral, map, "young", 1200);
 	      
+	        for (int i = 0; i < seller.length; i++) {
+	        	distribution(enroll, referral, map, seller[i], amount[i]*100);
+			}
 	        
-	        System.out.println(map);
+	        for (int i = 0; i < enroll.length; i++) {
+	        	answer[i] = map.get(enroll[i]);
+			}
+	        System.out.println(Arrays.toString(answer));
 	        return answer;
 	    }
 
 	    public void distribution(String[] arr,String[] referral, Map<String, Integer> map, String enroll,int amount) {
 	    	int top = amount / 10;
 	    	int bottom = amount - top;
-	    	String parents = referral[indexOf(arr, enroll)];
-	    	
-	    	if (map.containsKey(enroll)) {
-        		map.put(parents, map.get(parents) + top);
-        		System.out.println(parents);
-//        		distribution(arr, referral, map, parents, top);
+	    	if (indexOf(arr, enroll) != -1) {
+				
+	    		String parents = referral[indexOf(arr, enroll)];
+	    		map.put(enroll ,map.get(enroll) + bottom);
+	    		if (parents != "-") {
+	    			distribution(arr, referral, map, parents, top);
+	    		}
 			}
-        	map.put(enroll ,map.get(enroll) + bottom);
+	    	
 		}
 	    
 	    public static int indexOf(String[] arr, String str) {
@@ -2168,6 +2169,35 @@ public class Programmers {
 	        }
 	        return -1;  
 	    }
+	    
+	    
+//	    거스름돈
+	    public int solution49(int n, int[] money) {
+	        int answer = 0;
+	        Arrays.sort(money);
+	        int[] cases = new int[money.length];
+	        
+	        for (int i = 0; i < money.length; i++) {
+//				cases[i] = cases(money[i], money);
+	        	System.out.println(cases(money[i], money));
+			}
+	        
+	        return answer;
+	    }
+	    
+	    public int cases(int n,int[] money) {
+	        int[] dp = new int[n + 1];
+	        
+	        dp[0] = 1;
+	        
+	        for (int coin : money) {
+	            for (int i = coin; i <= n; i++) {
+	                dp[i] += dp[i - coin];
+	            }
+	        }
+	        
+	        return dp[n]; 
+		}
 }   
 
 

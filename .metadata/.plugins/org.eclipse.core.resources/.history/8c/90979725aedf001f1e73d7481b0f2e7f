@@ -247,13 +247,21 @@ public class Application {
 		
 		
 //		다단계 칫솔 판매
-		String[]  enroll = {"john", "mary", "edward", "sam", "emily", "jaimie", "tod", "young"};
-		String[]  referral = {"-", "-", "mary", "edward", "mary", "mary", "jaimie", "edward"};
-		String[]  seller = {"young", "john", "tod", "emily", "mary"};
-		int[]  amount = {12, 4, 2, 5, 10};
-		new Programmers().solution48(enroll,referral,seller,amount);
+//		String[]  enroll = {"john", "mary", "edward", "sam", "emily", "jaimie", "tod", "young"};
+//		String[]  referral = {"-", "-", "mary", "edward", "mary", "mary", "jaimie", "edward"};
+//		String[]  seller = {"young", "john", "tod", "emily", "mary"};
+//		int[]  amount = {12, 4, 2, 5, 10};
+//		String[]  enroll2 = {"john", "mary", "edward", "sam", "emily", "jaimie", "tod", "young"};
+//		String[]  referral2 = {"-", "-", "mary", "edward", "mary", "mary", "jaimie", "edward"};
+//		String[]  seller2 = {"sam", "emily", "jaimie", "edward"};
+//		int[]  amount2 = {2, 3, 5, 4};
+//		new Programmers().solution48(enroll2,referral2,seller2,amount2);
 		
 		
+//		거스름돈
+		int n = 5;
+		int[] money = {1,2,5};
+		new Programmers().solution49(n,money);
 		
 		
 	}
