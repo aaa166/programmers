@@ -6,8 +6,10 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="나선"/>
+		<item key="selection" value="노드"/>
 		<list key="findhistory">
+			<item value="노드"/>
+			<item value="가장"/>
 			<item value="f (isSquare) {"/>
 			<item value="나선"/>
 			<item value="printarr"/>
