@@ -1,0 +1,327 @@
+package programmers;
+
+public class Application {
+
+	public static void main(String[] args) {
+//		표 편집
+		String[] cmd = new String[] {"D 2","C","U 3","C","D 4","C","U 2","Z","Z"};
+//		new Programmers().solution1(8,3,cmd);
+//		new Programmers().solution2(8,2,cmd);
+		
+//		숫자 블록
+//		long begin =1;
+//		long end =10;
+//		new Programmers().solution3(begin,end);
+		
+//		조이스틱
+//		String name ="JEROEN";
+//		String name2 ="JAN";
+//		new Programmers().solution4(name);
+		
+//		입국심사 
+//		int n = 6;
+//		int[] times = new int[] {7,10};
+//		new Programmers().solution5(n,times);
+		
+		
+//  	멀쩡한 사각형  
+//		int W =8;
+//		int H =12;
+//		new Programmers().solution6(W,H);
+		
+		
+//  	점 찍기
+//		int k =1;
+//		int d =5;
+//		new Programmers().solution8(k,d);
+		
+		
+//  풍선 터트리기  
+//		int[] a = {9,-1,-5};
+//		int[] a = {-16,27,65,-2,58,-92,-71,-68,-61,-33};
+//		new Programmers().solution9(a);
+		
+		
+//		자물쇠와 열쇠(X)
+//		int[][] key = {{0, 0, 0}, {1, 0, 0}, {0, 1, 1}};
+//		int[][] lock = {{0, 1, 1}, {1, 1, 0}, {1, 0, 1}};
+//		new Programmers().solution10(key,lock);
+		
+		
+//		가장 큰 정사각형 찾기(X)
+//		int[][] board = {{0,1,1,1},{1,1,1,1},{1,1,1,1},{0,0,1,0}};
+//		int[][] board2 = {{0,0,1,1},{1,1,1,1}};
+//		new Programmers().solution11(board);
+		
+		
+		
+//	 	숫자 카드 나누기
+//		int[] arrayA = {10, 20};
+//		int[] arrayB = {5, 17};
+//		new Programmers().solution12(arrayA,arrayB);
+		
+//	 	가장 큰 수
+//		int[] numbers = {6,10,2};
+//		int[] numbers2 = {3,30,34,5,9};
+//		new Programmers().solution13(numbers);
+		
+//	 	햄버거 만들기
+//		int[] ingredient = {2, 1, 1, 2, 3, 1, 2, 3, 1};
+//		int[] ingredient2 = {1, 3, 2, 1, 2, 1, 3, 1, 2};
+//		new Programmers().solution14(ingredient);
+		
+//		2개 이하로 다른 비트
+//		long[] numbers = {2,7};
+//		new Programmers().solution15(numbers);
+		
+//		두 큐 합 같게 만들기(x)
+//		int[] queue1 = {3, 2, 7, 2};
+//		int[] queue2 = {4, 6, 5, 1};
+//		new Programmers().solution16(queue1,queue2);
+		
+		
+//		소수 찾기
+//		String numbers = "17";
+//		String numbers2 = "011";
+//		new Programmers().solution17(numbers);
+		
+//		다리를 지나는 트럭
+//		int bridge_length = 2;
+//		int weight = 10;
+//		int[] truck_weights = {7,4,5,6};
+		
+//		int bridge_length = 100;
+//		int weight = 100;
+//		int[] truck_weights = {10,10,10,10,10,10,10,10,10,10};
+		
+//		new Programmers().solution18(bridge_length,weight,truck_weights);
+		
+//		평행
+//		int[][] dots = {{1, 4}, {9, 2}, {3, 8}, {11, 6}};
+//		new Programmers().solution19(dots);
+		
+//		연속된 부분 수열의 합
+//		int[] sequence = {2, 2, 2, 2, 2};
+//		int k = 6;
+//		new Programmers().solution20(sequence,k);
+		
+//		삼각 달팽이
+//		int n = 6;
+//		new Programmers().solution21(n);
+		
+//		크레인 인형뽑기 게임
+//		int[][] board = {{0,0,0,0,0},{0,0,1,0,3},{0,2,5,0,1},{4,2,4,4,2},{3,5,1,3,1}};
+//		int[] moves = {1,5,3,5,1,2,1,4};
+//		new Programmers().solution22(board,moves);
+		
+//		큰 수 만들기
+//		String number = "1924";
+//		String number2 = "1231234";
+//		String number3 = "4177252841";
+//		int k = 2;
+//		new Programmers().solution23(number,k);
+		
+//		시소 짝꿍
+//		int[] weights = {100,180,360,100,270};
+//		new Programmers().solution25(weights);
+	
+//		마법의 엘리베이터(x)
+//		int storey = 2554;
+//		new Programmers().solution26(storey);
+		
+//		성격 유형 검사하기
+//		String[] survey = {"TR", "RT", "TR"};
+//		int[] choices = {7, 1, 3};
+//		new Programmers().solution28(survey,choices);
+		
+//		호텔 대실
+//		String[][] book_time = {{"15:00", "17:00"}, {"16:40", "18:20"}, {"14:20", "15:20"}, {"14:10", "19:20"}, {"18:20", "21:20"}};
+//		new Programmers().solution29(book_time);
+		
+		
+//		신규 아이디 추천
+//		String new_id = "\"abcdefghijklmn.p\"";
+//		new Programmers().solution30(new_id);
+		
+//		124 나라의 숫자
+//		int n =4;
+//		new Programmers().solution31(n);
+		
+//		보석 쇼핑
+//		String[] gems1 = {"DIA", "RUBY", "RUBY", "DIA", "DIA", "EMERALD", "SAPPHIRE", "DIA"};
+//		String[] gems2 = {"AA", "AB", "AC", "AA", "AC"};
+//		String[] gems3 = {"XYZ", "XYZ", "XYZ"};
+//		String[] gems4 = {"ZZZ", "YYY", "NNNN", "YYY", "BBB"};
+//		new Programmers().solution33(gems4);
+		
+		
+//		방금그곡
+//		String m ="ABCDEFG";
+//		String[] musicinfos = {"12:00,12:14,HELLO,CDEFGAB", "13:00,13:05,WORLD,ABCDEF"};
+//		String m2 ="CC#BCC#BCC#BCC#B";
+//		String[] musicinfos2 = {"03:00,03:30,FOO,CC#B","04:00,04:08,BAR,CC#BCC#BCC#B"};
+//		String m3 ="ABC";
+//		String[] musicinfos3 = {"12:00,12:14,HELLO,C#DEFGAB", "13:00,13:05,WORLD,ABCDEF"};
+//		new Programmers().solution34(m3,musicinfos3);
+		
+		
+//		행렬 테두리 회전하기
+//		int rows =6;
+//		int columns =6;
+//		int[][] queries = {{2,2,5,4},{3,3,6,6},{5,1,6,3}};
+//		new Programmers().solution36(rows,columns,queries);
+		
+		
+//		징검다리 건너기
+//		int[] stones = {2, 4, 5, 3, 2, 1, 4, 2, 5, 1};
+//		int k =3;
+//		new Programmers().solution37(stones,k);
+		
+		
+//		가장 먼 노드
+//		int n = 6;
+//		int[][] vertex = {{3, 6}, {4, 3}, {3, 2}, {1, 3}, {1, 2}, {2, 4}, {5, 2}};
+//		new Programmers().solution38(n, vertex);
+		
+//		가장 먼 노드
+//		int n = 3;
+//		int k = 5;
+//		new Programmers().solution39(n, k);
+		
+		
+//		거리두기 확인하기
+//		String[][] places = {{"POOOP", "OXXOX", "OPXPX", "OOXOX", "POXXP"}, 
+//				{"POOPX", "OXPXP", "PXXXO", "OXXXO", "OOOPP"}, 
+//				{"PXOPX", "OXOXP", "OXPOX", "OXXOP", "PXPOX"}, 
+//				{"OOOXX", "XOOOX", "OOOXX", "OXOOX", "OOOOO"}, 
+//				{"PXPXP", "XPXPX", "PXPXP", "XPXPX", "PXPXP"}};
+//		new Programmers().solution40(places);
+		
+//		달리기 경주
+//		String[] players = {"mumu", "soe", "poe", "kai", "mine"};
+//		String[] callings = {"kai", "kai", "mine", "mine"};
+//		new Programmers().solution41(players, callings);
+		
+//		개인정보 수집 유효기간
+//		String today = "2022.05.19";
+//		String[] terms = {"A 6", "B 12", "C 3"};
+//		String[] privacies = {"2021.05.02 A", "2021.07.01 B", "2022.02.19 C", "2022.02.20 C"};
+//		String today1 = "2020.01.01";
+//		String[] terms1 = {"Z 3", "D 5"};
+//		String[] privacies1 = {"2019.01.01 D", "2019.11.15 Z", "2019.08.02 D", "2019.07.01 D", "2018.12.28 Z"};
+//		new Programmers().solution43(today, terms,privacies);
+		
+		
+		
+		
+		
+//		디펜스 게임(x)
+//		int[] enemy = {4, 2, 4, 5, 3, 3, 1};
+//		int n = 7;
+//		int k = 3;
+//		int[] enemy1 = {3, 3, 3, 3};
+//		int n1 = 2;
+//		int k1 = 4;
+//		new Programmers().solution44(n1, k1,enemy1);
+		
+		
+//		정수를 나선형으로 배치하기
+//		int n = 4;
+//		new Programmers().solution45(n);
+		
+		
+//		공원 산책
+//		String[] park = {"SOO","OOO","OOO"};
+//		String[] routes = {"E 2","S 2","W 1"};
+//		String[] park2 = {"SOO","OXX","OOO"};
+//		String[] routes2 = {"E 2","S 2","W 1"};
+//		String[] park3 = {"OSO","OOO","OXO","OOO"};
+//		String[] routes3 = {"E 2","S 3","W 1"};
+//		new Programmers().solution46(park3, routes3);
+		
+		
+//		가장 큰 정사각형 찾기
+//		int[][]  board = {{0,1,1,1},{1,1,1,1},{1,1,1,1},{0,0,1,0}};
+//		int[][]  board2 = {{0,0,1,1},{1,1,1,1}};
+//		new Programmers().solution47(board2);
+		
+		
+//		다단계 칫솔 판매
+//		String[]  enroll = {"john", "mary", "edward", "sam", "emily", "jaimie", "tod", "young"};
+//		String[]  referral = {"-", "-", "mary", "edward", "mary", "mary", "jaimie", "edward"};
+//		String[]  seller = {"young", "john", "tod", "emily", "mary"};
+//		int[]  amount = {12, 4, 2, 5, 10};
+//		String[]  enroll2 = {"john", "mary", "edward", "sam", "emily", "jaimie", "tod", "young"};
+//		String[]  referral2 = {"-", "-", "mary", "edward", "mary", "mary", "jaimie", "edward"};
+//		String[]  seller2 = {"sam", "emily", "jaimie", "edward"};
+//		int[]  amount2 = {2, 3, 5, 4};
+//		new Programmers().solution48(enroll2,referral2,seller2,amount2);
+		
+		
+//		거스름돈
+//		int n = 100000;
+//		int[] money = {1,2,5};
+//		new Programmers().solution49(n,money);
+		
+		
+//		퍼즐 게임 챌린지
+//		int[]  diffs = {1, 5, 3};
+//		int[]  times = {2, 4, 7};
+//		long limit = 30;
+//		int[]  diffs2 = {1, 4, 4, 2};
+//		int[]  times2 = {6, 3, 8, 2};
+//		long limit2 = 59;
+//		new Programmers().solution50(diffs2,times2,limit2);
+		
+		
+//	    파괴되지 않은 건물
+//		int[][]  board = {{5,5,5,5,5},{5,5,5,5,5},{5,5,5,5,5},{5,5,5,5,5}};
+//		int[][]  skill = {{1,0,0,3,4,4},{1,2,0,2,3,2},{2,1,0,3,1,2},{1,0,1,3,3,1}};
+//		int[][]  board2 = {{1,2,3},{4,5,6},{7,8,9}};
+//		int[][]  skill2 = {{1,1,1,2,2,4},{1,0,0,1,1,2},{2,2,0,2,0,100}};
+//		new Programmers().solution51(board2,skill2);
+		
+		
+//		후보키
+//		String[][]  relation = {{"100","ryan","music","2"},{"200","apeach","math","2"},{"300","tube","computer","3"},{"400","con","computer","4"},{"500","muzi","music","3"},{"600","apeach","music","2"}};
+//		new Programmers().solution52(relation);
+		
+		
+//		여행경로(x)
+//		String[][]  tickets = {{"ICN", "JFK"}, {"HND", "IAD"}, {"JFK", "HND"}};
+//		String[][]  tickets2 = {{"ICN", "SFO"},{"ICN", "ATL"}, {"SFO", "ATL"}, {"ATL", "ICN"}, {"ATL","SFO"}};
+//		new Programmers().solution54(tickets2);
+		
+//		공원
+//		int[] mats = {5,3,2};
+//		String[][]  park = {{"A", "A", "-1", "B", "B", "B", "B", "-1"}, 
+//							{"A", "A", "-1", "B", "B", "B", "B", "-1"}, 
+//							{"-1", "-1", "-1", "-1", "-1", "-1", "-1", "-1"}, 
+//							{"D", "D", "-1", "-1", "-1", "-1", "E", "-1"}, 
+//							{"D", "D", "-1", "-1", "-1", "-1", "-1", "F"}, 
+//							{"D", "D", "-1", "-1", "-1", "-1", "E", "-1"}};
+//		new Programmers().solution55(mats,park);
+		
+		
+		
+//		붕대 감기
+//		int[]  bandage = {5, 1, 5};
+//		int  health = 30;
+//		int[][]  attacks = {{2, 10}, {9, 15}, {10, 5}, {11, 5}};
+//		
+//		int[]  bandage2 = {3, 2, 7};
+//		int  health2 = 20;
+//		int[][]  attacks2 = {{1, 15}, {5, 16}, {8, 6}};
+//		new Programmers().solution56(bandage2,health2,attacks2);
+		
+		
+		
+//		N-Queen
+		int  n = 7;
+		new Programmers().solution57(n);
+//		new Programmers().solution58(n);
+		
+		
+	}
+
+}
