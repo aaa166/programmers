@@ -1,0 +1,11 @@
+package baekjoon;
+
+public class Appication {
+
+	public static void main(String[] args) {
+		int n =111;
+		new Baekjoon().name(n);
+
+	}
+
+}

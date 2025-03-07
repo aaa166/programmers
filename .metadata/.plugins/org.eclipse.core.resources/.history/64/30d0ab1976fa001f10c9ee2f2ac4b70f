@@ -1,0 +1,16 @@
+package baekjoon;
+
+
+public class Appication {
+
+//	public static void main(String[] args) {
+//		Scanner sc = new Scanner(System.in);
+//		
+//		int n = sc.nextInt();
+//		int answer = 1;
+//		
+//		new Baekjoon().baekjoon27433(n,answer);
+//
+//	}
+
+}

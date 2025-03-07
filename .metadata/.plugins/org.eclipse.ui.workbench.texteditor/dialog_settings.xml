@@ -6,11 +6,12 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value=""/>
+		<item key="selection" value="printArr"/>
 		<list key="findhistory">
+			<item value="printArr"/>
+			<item value="print"/>
 			<item value="틱택토"/>
 			<item value="printArray2"/>
-			<item value="print"/>
 			<item value="노드"/>
 			<item value="가장"/>
 			<item value="f (isSquare) {"/>

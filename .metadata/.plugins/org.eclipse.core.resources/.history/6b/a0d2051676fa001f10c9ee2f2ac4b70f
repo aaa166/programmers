@@ -1,0 +1,16 @@
+package baekjoon;
+
+import java.util.Scanner;
+
+public class Baekjoon {
+
+	public void baekjoon27433(int n, int answer) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+
+    
+	
+
+}
