@@ -1,0 +1,155 @@
+package baekjoon;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int[] arr = new int[13];
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int num = 0;
+		String read ;
+		
+		try {
+			while ((read = br.readLine()) != null) {
+			    try {
+			        int number = Integer.parseInt(read);  
+			    } catch (NumberFormatException e) {
+			        System.out.println("정수가 아닙니다.");
+			    }
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
+//		while ( (read = br.readLine()) != null) {
+//			arr[num] = Integer.parseInt(read);
+//			num++;
+//		}
+		
+		System.out.println(num);
+		System.out.println(Arrays.toString(arr));
+//		StringBuffer str  = new StringBuffer("-");
+		
+		for (int i = 0; i < num; i++) {
+			StringBuilder str  = new StringBuilder("-");
+			System.out.println(baekjoon4779(arr[i],str));
+		}
+	}
+//	---------------------------------------------------------------------------------
+	
+	public static StringBuilder baekjoon4779(int n,StringBuilder str) {
+		if (n > 0) {
+			String s = str.toString();
+			for (int i = 0; i < s.length(); i++) {
+				str.append(" ");
+			}
+			str.append(s);
+			n--;
+			baekjoon4779(n, str);
+		}
+		return str;
+	}
+	public static StringBuffer baekjoon4779(int n,StringBuffer str) {
+		if (n > 0) {
+			String s = str.toString();
+			for (int i = 0; i < s.length(); i++) {
+				str.append(" ");
+			}
+			str.append(s);
+			n--;
+			baekjoon4779(n, str);
+		}
+		return str;
+	}
+	public static StringBuffer baekjoon4779(StringBuffer str) {
+		int num = str.length() / 3;
+		
+		str.delete(num, num*2);
+		for (int i = 0; i < num; i++) {
+			str.insert(num, " ");
+		}
+		
+//		System.out.println(str);
+		if (num == 1) {
+			return str;
+		}else {
+			StringBuffer str1 = new StringBuffer(str.toString().substring(0, num));
+			String s = baekjoon4779(str1).toString();
+			
+			str.replace(0, num, s);
+			str.replace(num*2, str.length(), s);
+			
+			return str;
+			}
+	}
+	
+//	병합 정렬 1
+    public static void baekjoon24060() {
+    	
+	}
+	
+//	재귀의 귀재
+	public static void recursion(String s, int l, int r, int c){
+        if(l >= r) {
+        	System.out.printf("%d %d\n",1,c);
+        	return ;
+        }
+        else if(s.charAt(l) != s.charAt(r)) {
+        	System.out.printf("%d %d\n",0,c);
+        	return ;
+        }
+        else {
+        	recursion(s, l+1, r-1,c+1);
+        	return;
+        }
+    }
+    public static void isPalindrome(String s){
+    	recursion(s, 0, s.length()-1,1);
+        return;
+    }
+//	피보나치수5
+    public static int baekjoon10870(int n) {
+    	if (n==0) return 0;
+    	else if(n==1) return 1;
+    	else return Main.baekjoon10870(n-1)+Main.baekjoon10870(n-2);
+	}
+//	팩토리얼2
+    public static void baekjoon27433(int n, int answer) {
+    	if (n <= 1) {
+    		System.out.println(answer);
+    		return;
+    	}else {
+    		answer = answer * n;
+    		n--;
+    		baekjoon27433(n, answer);
+    	}
+    	return;
+    }
+//    2차원배열 출력
+    public static void printArray2(int[][] arr) {
+    	for (int i = 0; i < arr.length; i++) {
+    		for (int j = 0; j < arr[0].length; j++) {
+    			System.out.print(arr[i][j] + " ");
+    		}
+    		System.out.println();
+    	}
+    	System.out.println();
+    }
+    public static void printArray2(char[][] arr) {
+    	for (int i = 0; i < arr.length; i++) {
+    		for (int j = 0; j < arr[0].length; j++) {
+    			System.out.print(arr[i][j] + " ");
+    		}
+    		System.out.println();
+    	}
+    	System.out.println();
+    }
+
+
+}
