@@ -1,0 +1,244 @@
+package baekjoon;
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		String read ;
+		
+		read =  br.readLine();
+//		int n = Integer.parseInt(read);
+		String[] N = read.split(" ");
+		int[] n = new int[N.length];
+		for (int i = 0; i < n.length; i++) {
+			n[i] = Integer.parseInt(N[i]);
+		}
+//		while ((read = br.readLine()) != null) {
+//			list.add(Integer.parseInt(read));
+//		}
+		StringBuffer sb = new StringBuffer();
+		List<Integer> list = new ArrayList<>();
+		for (int i = 1; i <= n[0] ; i++) {
+			list.add(i);
+		}
+		
+		baekjoon15649(n[1], list, sb);
+		
+	    }
+//	---------------------------------------------------------------------------------
+	
+//	N과 M (1)
+	public static void baekjoon15649(int count, List<Integer> list, StringBuffer sb){
+		count--;
+		
+		if (count == 0) {
+			for (int i = 0; i < list.size(); i++) {
+				
+				if (sb.isEmpty()) 	System.out.printf("%d\n",list.get(i));
+				else 				System.out.printf("%s %d\n",sb,list.get(i));
+			}
+		}else {
+			while (!list.isEmpty()) {
+				sb.append(list.get(0));
+				list.remove(0);
+				baekjoon15649(count, list, sb);
+				
+			}
+		}
+		
+	}
+//	하노이 탑 이동 순서
+    public static void hanoi(int n, int from, int to, int aux, BufferedWriter bw) throws IOException {
+        if (n == 1) {
+            bw.write(from + " " + to + "\n");
+        } else {
+            hanoi(n - 1, from, aux, to, bw);
+            bw.write(from + " " + to + "\n");
+            hanoi(n - 1, aux, to, from, bw);
+        }
+    }
+	public static void baekjoon11729(int n,int f, int t, int s) {
+		if (n != 1) {
+			baekjoon11729(n-1, f, s, t);
+			System.out.printf("%d %d\n",f,t);
+			baekjoon11729(n-1, s, t, f);
+			
+		}
+		else{
+			System.out.printf("%d %d\n",f,t);
+			return;
+		}
+	}
+	
+	
+//	별 찍기 - 10
+	public static char[][] baekjoon2447(int n) {
+		if (n==3) return  new char[][]{{'*','*','*'},
+										{'*',' ','*'},
+										{'*','*','*'}};
+											
+        char[][] smaller = baekjoon2447(n / 3);
+//        int size = n; 
+        char[][] arr = new char[n][n];
+
+//        for (int i = 0; i < n; i++) {
+//            for (int j = 0; j < n; j++) {
+//                if ((i / (n / 3)) % 3 == 1 && (j / (n / 3)) % 3 == 1) {
+//                    arr[i][j] = ' '; 
+//                } else {
+//                    arr[i][j] = smaller[i % (n / 3)][j % (n / 3)];
+//                }
+//            }
+//        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if ((i / (n / 3)) % 3 != 1 || (j / (n / 3)) % 3 != 1) {
+                	arr[i][j] = smaller[i % (n / 3)][j % (n / 3)];
+                } else {
+                	arr[i][j] = ' '; 
+                }
+            }
+        }
+
+        return arr;
+    }
+	public static void baekjoon2447A(char[][] arr, int x, int y, int size) {
+	      if (size == 1) {
+	            arr[x][y] = '*';
+	            return;
+	        }
+
+	        int subSize = size / 3; // 3등분
+	        for (int i = 0; i < 3; i++) {
+	            for (int j = 0; j < 3; j++) {
+	                // 중앙 부분만 비워놓기
+	                if (i == 1 && j == 1) {
+	                    continue;
+	                }
+	                // 해당 부분에 대해 재귀 호출
+	                baekjoon2447A(arr, x + i * subSize, y + j * subSize, subSize);
+	            }
+	        }
+	    }
+
+	public static void fillArray(char[][] arr,char c) {
+		for (int i = 0; i < arr.length; i++) {
+            Arrays.fill(arr[i], c);  
+        }
+	}
+	
+	
+//	칸토어 집합
+	public static StringBuilder baekjoon4779(int n,StringBuilder str) {
+		if (n > 0) {
+			String s = str.toString();
+			for (int i = 0; i < s.length(); i++) {
+				str.append(" ");
+			}
+			str.append(s);
+			n--;
+			baekjoon4779(n, str);
+		}
+		return str;
+	}
+	public static StringBuffer baekjoon4779(int n,StringBuffer str) {
+		if (n > 0) {
+			String s = str.toString();
+			for (int i = 0; i < s.length(); i++) {
+				str.append(" ");
+			}
+			str.append(s);
+			n--;
+			baekjoon4779(n, str);
+		}
+		return str;
+	}
+	public static StringBuffer baekjoon4779(StringBuffer str) {
+		int num = str.length() / 3;
+		
+		str.delete(num, num*2);
+		for (int i = 0; i < num; i++) {
+			str.insert(num, " ");
+		}
+		
+//		System.out.println(str);
+		if (num == 1) {
+			return str;
+		}else {
+			StringBuffer str1 = new StringBuffer(str.toString().substring(0, num));
+			String s = baekjoon4779(str1).toString();
+			
+			str.replace(0, num, s);
+			str.replace(num*2, str.length(), s);
+			
+			return str;
+			}
+	}
+	
+//	병합 정렬 1
+    public static void baekjoon24060() {
+    	
+	}
+	
+//	재귀의 귀재
+	public static void recursion(String s, int l, int r, int c){
+        if(l >= r) {
+        	System.out.printf("%d %d\n",1,c);
+        	return ;
+        }
+        else if(s.charAt(l) != s.charAt(r)) {
+        	System.out.printf("%d %d\n",0,c);
+        	return ;
+        }
+        else {
+        	recursion(s, l+1, r-1,c+1);
+        	return;
+        }
+    }
+    public static void isPalindrome(String s){
+    	recursion(s, 0, s.length()-1,1);
+        return;
+    }
+//	피보나치수5
+    public static int baekjoon10870(int n) {
+    	if (n==0) return 0;
+    	else if(n==1) return 1;
+    	else return Main.baekjoon10870(n-1)+Main.baekjoon10870(n-2);
+	}
+//	팩토리얼2
+    public static void baekjoon27433(int n, int answer) {
+    	if (n <= 1) {
+    		System.out.println(answer);
+    		return;
+    	}else {
+    		answer = answer * n;
+    		n--;
+    		baekjoon27433(n, answer);
+    	}
+    	return;
+    }
+//    2차원배열 출력
+    public static void printArray2(int[][] arr) {
+    	for (int i = 0; i < arr.length; i++) {
+    		for (int j = 0; j < arr[0].length; j++) {
+    			System.out.print(arr[i][j] + " ");
+    		}
+    		System.out.println();
+    	}
+    	System.out.println();
+    }
+    public static void printArray2(char[][] arr) {
+    	for (int i = 0; i < arr.length; i++) {
+    		for (int j = 0; j < arr[0].length; j++) {
+    			System.out.print(arr[i][j] + " ");
+    		}
+    		System.out.println();
+    	}
+    	System.out.println();
+    }
+
+
+}
